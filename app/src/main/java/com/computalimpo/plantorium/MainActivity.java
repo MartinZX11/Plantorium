@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crops);
         ((BottomNavigationView) findViewById(R.id.bottomNavigationView)).setOnNavigationItemSelectedListener(this);
+        String tag = "crops";
+        Fragment fragment=  new CropsFragment();
+        getSupportActionBar().setTitle(R.string.crops);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment, tag).commit();
     }
 
     @Override
