@@ -20,8 +20,8 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_margin">3dp</item>
         <item name="android:textSize">5pt</item>
-        <item name="android:background">#70ff106d</item>
-        <item name="android:shadowColor">#70ff106d</item>
+        <item name="android:background">#584A38</item>
+        <item name="android:shadowColor">#47312B</item>
     </style>
 
 </resources>

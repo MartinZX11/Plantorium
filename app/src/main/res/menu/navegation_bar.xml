@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/crops"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="@string/crops"
+        app:showAsAction="always" />
+    <item android:id="@+id/map"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/map"
+        app:showAsAction="always" />
+    <item android:id="@+id/task"
+        android:icon="@android:drawable/ic_menu_directions"
+        android:title="@string/task"
+        app:showAsAction="always" />
+
+
+</menu>
