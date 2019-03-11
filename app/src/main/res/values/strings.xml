@@ -4,5 +4,6 @@
     <string name="home">Home</string>
     <string name="map">Map</string>
     <string name="task">Task</string>
+    <string name="qr">QR</string>
 
 </resources>

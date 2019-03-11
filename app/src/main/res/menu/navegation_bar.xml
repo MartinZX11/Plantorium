@@ -9,10 +9,12 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/map"
         app:showAsAction="always" />
+    <item android:id="@+id/qr"
+        android:icon="@android:drawable/ic_menu_directions"
+        android:title="@string/qr"
+        app:showAsAction="always" />
     <item android:id="@+id/task"
         android:icon="@android:drawable/ic_menu_directions"
         android:title="@string/task"
         app:showAsAction="always" />
-
-
 </menu>
