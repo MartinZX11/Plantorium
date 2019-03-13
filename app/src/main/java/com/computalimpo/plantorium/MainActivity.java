@@ -13,7 +13,10 @@ import com.computalimpo.plantorium.fragments.MapFragment;
 import com.computalimpo.plantorium.fragments.QRFragment;
 import com.computalimpo.plantorium.fragments.TaskFragment;
 
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +47,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Log.d("tag1", "onNavigationItemSelected: ");
                 fragment= getSupportFragmentManager().findFragmentByTag(tag);
                 if(fragment== null) {
-                    fragment=  new MapFragment();
+                    fragment = new MapFragment();
                 }getSupportActionBar().setTitle(R.string.map);
+
+
+
                 break;
             case R.id.qr:
                 tag = "qr";
@@ -68,5 +74,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment, tag).commit();
         return true;
 
+
     }
+
+
+
+
 }
