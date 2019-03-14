@@ -3,6 +3,8 @@ package com.computalimpo.plantorium.fragments;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +32,17 @@ public class TaskFragment extends Fragment {
         ListView taskList = cropView.findViewById(R.id.taskList);
         taskList.setAdapter(taskAdapter);
         taskAdapter.addAll(getMockTask());
-        FloatingActionButton addTask = cropView.findViewById(R.id.addTask);
+        FloatingActionButton addTask = cropView.findViewById(R.id.addTaskFloatingButton);
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(cropView.getContext(), R.string.task, Toast.LENGTH_SHORT).show();
+                String tag = "add_task";
+                Fragment fragment = getFragmentManager().findFragmentByTag(tag);
+                if(fragment== null) {
+                    fragment = new AddTaskFragment();
+                }((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.add_task);
+                getFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment, tag).commit();
+
             }
         });
         return cropView;
@@ -53,7 +61,7 @@ public class TaskFragment extends Fragment {
             }
             taskList.add(aux);
         }
-        
+
         return taskList;
     }
 }
