@@ -1,5 +1,6 @@
 package com.computalimpo.plantorium.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.computalimpo.plantorium.AddTaskActivity;
 import com.computalimpo.plantorium.POJO.TaskPOJO;
 import com.computalimpo.plantorium.R;
 import com.computalimpo.plantorium.adapters.TaskAdapter;
@@ -36,13 +38,8 @@ public class TaskFragment extends Fragment {
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tag = "add_task";
-                Fragment fragment = getFragmentManager().findFragmentByTag(tag);
-                if(fragment== null) {
-                    fragment = new AddTaskFragment();
-                }((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.add_task);
-                getFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment, tag).commit();
-
+                Intent intent = new Intent(getActivity(), AddTaskActivity.class);
+                startActivity(intent);
             }
         });
         return cropView;
