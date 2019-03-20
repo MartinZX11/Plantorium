@@ -13,6 +13,11 @@
         android:icon="@android:drawable/ic_menu_directions"
         android:title="@string/qr"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/weather"
+        android:icon="@android:drawable/ic_lock_idle_low_battery"
+        android:title="@string/weather"
+        app:showAsAction="always" />
     <item android:id="@+id/task"
         android:icon="@android:drawable/ic_menu_directions"
         android:title="@string/task"

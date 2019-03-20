@@ -12,6 +12,7 @@ import com.computalimpo.plantorium.fragments.CropsFragment;
 import com.computalimpo.plantorium.fragments.MapFragment;
 import com.computalimpo.plantorium.fragments.QRFragment;
 import com.computalimpo.plantorium.fragments.TaskFragment;
+import com.computalimpo.plantorium.fragments.WeatherFragment;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -49,9 +50,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 if(fragment== null) {
                     fragment = new MapFragment();
                 }getSupportActionBar().setTitle(R.string.map);
-
-
-
                 break;
             case R.id.qr:
                 tag = "qr";
@@ -60,6 +58,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 if(fragment== null) {
                     fragment=  new QRFragment();
                 }getSupportActionBar().setTitle(R.string.qr);
+                break;
+            case R.id.weather:
+                tag = "weather";
+                Log.d("tag1", "onNavigationItemSelected: ");
+                fragment= getSupportFragmentManager().findFragmentByTag(tag);
+                if(fragment== null) {
+                    fragment=  new WeatherFragment();
+                }getSupportActionBar().setTitle(R.string.weather);
                 break;
             case R.id.task:
                 tag = "task";
