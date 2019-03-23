@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/general_info"
+                    android:layout_width="113dp"
+                    android:layout_height="122dp"
+                    app:srcCompat="@drawable/sun_icon"
+                    android:visibility="invisible"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/prob_rain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/title_prob_rain"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/porcentaje_rain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/min_temp_icon"
+                    android:layout_width="107dp"
+                    android:layout_height="35dp"
+                    app:srcCompat="@drawable/min_temperature_icon"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/text_min_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text=""/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/max_temp_icon"
+                    android:layout_width="113dp"
+                    android:layout_height="36dp"
+                    app:srcCompat="@drawable/max_temperature_icon"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/text_max_temp"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text=""/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/moisture_icon"
+                    android:layout_width="80dp"
+                    android:layout_height="25dp"
+                    app:srcCompat="@drawable/moisture_icon"
+                    android:visibility="invisible"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/title_min_moisture"
+                    android:layout_width="67dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/title_min_moisture"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/min_moisture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/title_max_moisture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/title_max_moisture"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/max_moisture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <ImageView
+                    android:id="@+id/wind_icon"
+                    android:layout_width="79dp"
+                    android:layout_height="29dp"
+                    app:srcCompat="@drawable/wind_icon"
+                    android:visibility="invisible"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="145dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/header_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/header_time"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/header_dir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/header_dir"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/header_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/header_speed"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/slot1_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/slot1"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/slot1_dir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/slot1_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/slot2_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/slot2"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/slot2_dir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/slot2_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/slot3_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/slot3"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/slot3_dir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/slot3_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/slot4_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/slot4"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/slot4_dir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/slot4_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="" />
+
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/load_weather"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <Button
+        android:id="@+id/tomorrowButton"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/tomorrowButton"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/todayButton"
+        style="@style/CustomButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/todayButton"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.0" />
+
+</android.support.constraint.ConstraintLayout>

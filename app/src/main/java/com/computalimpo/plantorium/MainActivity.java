@@ -1,8 +1,10 @@
 package com.computalimpo.plantorium;
 
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,8 @@ import com.computalimpo.plantorium.fragments.QRFragment;
 import com.computalimpo.plantorium.fragments.TaskFragment;
 import com.computalimpo.plantorium.fragments.WeatherFragment;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -22,12 +26,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String tag;
+        Fragment fragment = null;
         setContentView(R.layout.activity_crops);
-        ((BottomNavigationView) findViewById(R.id.bottomNavigationView)).setOnNavigationItemSelectedListener(this);
-        String tag = "crops";
-        Fragment fragment=  new CropsFragment();
+        tag = "crops";
+        fragment = new CropsFragment();
         getSupportActionBar().setTitle(R.string.crops);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment, tag).commit();
+        ((BottomNavigationView) findViewById(R.id.bottomNavigationView)).setOnNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -79,11 +86,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment, tag).commit();
         return true;
-
-
     }
-
-
-
-
 }

@@ -12,4 +12,18 @@
     <string name="date_default">Pick a date</string>
     <string name="formato_fecha">dd/mm/yyyy</string>
     <string name="formato_hora">hh:mm</string>
+    <string name="todayButton">Today</string>
+    <string name="tomorrowButton">Tomorrow</string>
+    <string name="title_max_moisture">Max</string>
+    <string name="title_min_moisture">Min</string>
+    <string name="header_time">Time Slot</string>
+    <string name="header_dir">Direction</string>
+    <string name="header_speed">Speed (km/h)</string>
+    <string name="slot1">00-06</string>
+    <string name="slot2">06-12</string>
+    <string name="slot3">12-18</string>
+    <string name="slot4">18-24</string>
+    <string name="title_prob_rain">Prob. of rain</string>
+
+
 </resources>
