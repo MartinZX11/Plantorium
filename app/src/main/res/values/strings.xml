@@ -24,6 +24,9 @@
     <string name="slot3">12-18</string>
     <string name="slot4">18-24</string>
     <string name="title_prob_rain">Prob. of rain</string>
+    <string name="title_moisture">Porcentaje de humedad</string>
+    <string name="today_tab">TODAY</string>
+    <string name="tomorrow_tab">TOMORROW</string>
 
 
 </resources>

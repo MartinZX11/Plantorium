@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
@@ -30,9 +33,8 @@ public class WeatherFragment extends Fragment {
     private View weather_view = null;
     MyAEMETTask weather_task;
     JSONArray infoAEMET = null;
-    Button tomorrowButton;
-    Button todayButton;
-    TextView porcentaje_rain, text_max_temp, text_min_temp, min_moisture, max_moisture, slot1_dir, slot1_speed, slot2_dir, slot2_speed, slot3_dir, slot3_speed, slot4_dir, slot4_speed;
+    TabLayout tabs;
+    TextView municipio, porcentaje_rain, text_max_temp, text_min_temp, min_moisture, max_moisture, slot1_dir, slot1_speed, slot2_dir, slot2_speed, slot3_dir, slot3_speed, slot4_dir, slot4_speed;
     ImageView general_info, min_temp_icon, max_temp_icon, moisture_icon, wind_icon;
     TextView title_prob_rain, title_min_moisture, title_max_moisture, header_time, header_dir, header_speed, slot1_time, slot2_time, slot3_time, slot4_time;
 
@@ -49,27 +51,28 @@ public class WeatherFragment extends Fragment {
             Toast.makeText(getActivity(), "No dispones de conexión a Internet", Toast.LENGTH_SHORT).show();
         }
 
-        tomorrowButton = weather_view.findViewById(R.id.tomorrowButton);
-        tomorrowButton.setOnClickListener(new View.OnClickListener() {
+        tabs = weather_view.findViewById(R.id.tabLayout);
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                tomorrowButton.setVisibility(View.INVISIBLE);
-                todayButton.setVisibility(View.VISIBLE);
-
-                obtenerWeatherInfo(infoAEMET, 1);
-                //refreshUI(info_weather);
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        obtenerWeatherInfo(infoAEMET, 0);
+                        break;
+                    case 1:
+                        obtenerWeatherInfo(infoAEMET, 1);
+                        break;
+                }
             }
-        });
 
-        todayButton = weather_view.findViewById(R.id.todayButton);
-        todayButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                todayButton.setVisibility(View.INVISIBLE);
-                tomorrowButton.setVisibility(View.VISIBLE);
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-                obtenerWeatherInfo(infoAEMET, 0);
-                //refreshUI(info_weather);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 
@@ -102,6 +105,7 @@ public class WeatherFragment extends Fragment {
         slot2_time = weather_view.findViewById(R.id.slot2_time);
         slot3_time = weather_view.findViewById(R.id.slot3_time);
         slot4_time = weather_view.findViewById(R.id.slot4_time);
+        municipio = weather_view.findViewById(R.id.municipio);
 
         return weather_view;
     }
@@ -144,9 +148,10 @@ public class WeatherFragment extends Fragment {
         slot2_time.setVisibility(View.VISIBLE);
         slot3_time.setVisibility(View.VISIBLE);
         slot4_time.setVisibility(View.VISIBLE);
+        municipio.setVisibility(View.VISIBLE);
 
         //Ya puede interaccionar el usario, el cual se encuenra en el today_info
-        tomorrowButton.setVisibility(View.VISIBLE);
+        //tomorrowButton.setVisibility(View.VISIBLE);
         ////Referencia al JSON de AEMET////
         infoAEMET = json;
 
@@ -161,6 +166,8 @@ public class WeatherFragment extends Fragment {
     public void obtenerWeatherInfo(JSONArray json, int select_dia) {
         String dir, velocidad, hora;
         try {
+
+            municipio.setText(json.getJSONObject(0).getString("nombre")  + ", " + json.getJSONObject(0).getString("provincia"));
 
             JSONObject dia = json.getJSONObject(0).getJSONObject("prediccion").getJSONArray("dia").getJSONObject(select_dia);
             int porcentaje_lluvia = Integer.parseInt(dia.getJSONArray("probPrecipitacion").getJSONObject(0).getString("value"));
