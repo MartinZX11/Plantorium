@@ -1,6 +1,57 @@
 package com.computalimpo.plantorium.POJO;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+
+import com.computalimpo.plantorium.helper.TaskType;
+
+@Entity(tableName = "task_table",indices ={@Index("name")},
+        foreignKeys = @ForeignKey(entity = CropPOJO.class, parentColumns = "id", childColumns = "task_crop"))
 public class TaskPOJO {
+    @PrimaryKey
+    private int id;
+    @ColumnInfo(name="task_crop")
+    private int crop;
+    @ColumnInfo(name="task_date")
+    private String date;
+    @ColumnInfo(name="task_type")
+    private TaskType type;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCrop() {
+        return crop;
+    }
+
+    public void setCrop(int crop) {
+        this.crop = crop;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public TaskType getType() {
+        return type;
+    }
+
+    public void setType(TaskType type) {
+        this.type = type;
+    }
+
     private String taskText;
     private String priority;
 
