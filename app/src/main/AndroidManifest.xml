@@ -38,7 +38,12 @@
 
         <activity
             android:name=".AddTaskActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName="com.computalimpo.plantorium.MainActivity" >
+            <!-- The meta-data element is needed for versions lower than 4.1 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.computalimpo.plantorium.MainActivity" />
         </activity>
     </application>
 
