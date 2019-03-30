@@ -4,18 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.computalimpo.plantorium.AddTaskActivity;
 import com.computalimpo.plantorium.POJO.TaskPOJO;
 import com.computalimpo.plantorium.R;
 import com.computalimpo.plantorium.adapters.TaskAdapter;
+import com.computalimpo.plantorium.helper.TaskType;
 
 import java.util.ArrayList;
 
@@ -29,11 +27,11 @@ public class TaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View cropView = inflater.inflate(R.layout.fragment_task, null);
 
-        taskAdapter = new TaskAdapter(getContext(), R.layout.task_row, new ArrayList<TaskPOJO>());
+        taskAdapter = new TaskAdapter(getContext(), R.layout.task_row_item, new ArrayList<TaskPOJO>());
 
         ListView taskList = cropView.findViewById(R.id.taskList);
         taskList.setAdapter(taskAdapter);
-        taskAdapter.addAll(getMockTask());
+        getMockTask();
         FloatingActionButton addTask = cropView.findViewById(R.id.addTaskFloatingButton);
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,20 +43,24 @@ public class TaskFragment extends Fragment {
         return cropView;
     }
 
-    public ArrayList<TaskPOJO> getMockTask(){
+    public void getMockTask(){
         ArrayList<TaskPOJO> taskList = new ArrayList<>();
-
         for(int i = 0; i < 20 ; i ++){
-            TaskPOJO aux;
-            taskList.add(new TaskPOJO("CROP 0", "MEDIUM"));
-            if(i % 3 == 0){
-                aux = new TaskPOJO("CROP" + i, "HIGH");
-            }else {
-                aux = new TaskPOJO("CROP" + i, "LOW");
-            }
-            taskList.add(aux);
+            taskList.add(new TaskPOJO(i, i,i / 5 + "/10/2019" , TaskType.WATER,"AGUA","" ));
         }
-
-        return taskList;
+        String aux;
+        aux = taskList.get(0).getDate();
+        taskAdapter.addSectionHeaderItem(taskList.get(0));
+        for(TaskPOJO task : taskList){
+            if(task.getDate().equals(aux)){
+                taskAdapter.addItem(task);
+            }else{
+                taskAdapter.addSectionHeaderItem(task);
+                taskAdapter.addItem(task);
+                aux = task.getDate();
+            }
+        }
+        taskAdapter.notifyDataSetChanged();
+        return;
     }
 }

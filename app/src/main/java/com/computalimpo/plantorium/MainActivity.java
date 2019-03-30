@@ -21,8 +21,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         getSupportActionBar().setTitle(R.string.crops);
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment, tag).commit();
         ((BottomNavigationView) findViewById(R.id.bottomNavigationView)).setOnNavigationItemSelectedListener(this);
-
     }
 
     @Override

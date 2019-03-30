@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,7 +21,15 @@ public class AddTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
 
         ImageButton datePicker = findViewById(R.id.date_picker_button);
+        Button cancelButton = findViewById(R.id.cancel_add_task_button);
         dateTextView = findViewById(R.id.date_textview);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
