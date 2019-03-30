@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 import com.computalimpo.plantorium.helper.TaskType;
 
-@Entity(tableName = "task_table",indices ={@Index("name")},
+@Entity(tableName = "task_table",indices ={@Index("task_crop")},
         foreignKeys = @ForeignKey(entity = CropPOJO.class, parentColumns = "id", childColumns = "task_crop"))
 public class TaskPOJO {
     @PrimaryKey
@@ -18,7 +18,7 @@ public class TaskPOJO {
     @ColumnInfo(name="task_date")
     private String date;
     @ColumnInfo(name="task_type")
-    private TaskType type;
+    private String type;
 
     public int getId() {
         return id;
@@ -44,11 +44,11 @@ public class TaskPOJO {
         this.date = date;
     }
 
-    public TaskType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(TaskType type) {
+    public void setType(String type) {
         this.type = type;
     }
 

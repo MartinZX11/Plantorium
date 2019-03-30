@@ -6,7 +6,7 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "crop_table",indices ={@Index("name")},
+@Entity(tableName = "crop_table",indices ={@Index("crop_category")},
         foreignKeys = @ForeignKey(entity = CategoryPOJO.class, parentColumns = "id", childColumns = "crop_category"))
 public class CropPOJO {
    @PrimaryKey
