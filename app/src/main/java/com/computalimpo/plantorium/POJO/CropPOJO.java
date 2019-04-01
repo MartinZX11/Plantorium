@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "crop_table",indices ={@Index("crop_category")},
         foreignKeys = @ForeignKey(entity = CategoryPOJO.class, parentColumns = "id", childColumns = "crop_category"))
 public class CropPOJO {
-   @PrimaryKey
+   @PrimaryKey(autoGenerate = true)
     private int id;
    @ColumnInfo(name="crop_sector")
     private int sector;
@@ -23,6 +23,20 @@ public class CropPOJO {
 
     @ColumnInfo(name="crop_water")
     private int water;
+
+    public CropPOJO(){
+
+    }
+
+    public CropPOJO(int sector, int row, int pos_in_row, int category, int water, int prune, int ill) {
+        this.sector = sector;
+        this.row = row;
+        this.pos_in_row = pos_in_row;
+        this.category = category;
+        this.water = water;
+        this.prune = prune;
+        this.ill = ill;
+    }
 
     public int getId() {
         return id;

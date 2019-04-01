@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class WeatherFragment extends Fragment {
     TextView municipio, porcentaje_rain, text_max_temp, text_min_temp, min_moisture, max_moisture, slot1_dir, slot1_speed, slot2_dir, slot2_speed, slot3_dir, slot3_speed, slot4_dir, slot4_speed;
     ImageView general_info, min_temp_icon, max_temp_icon, moisture_icon, wind_icon;
     TextView title_prob_rain, title_min_moisture, title_max_moisture, header_time, header_dir, header_speed, slot1_time, slot2_time, slot3_time, slot4_time;
+    ScrollView weatherScrollView;
 
     public WeatherFragment() {}
 
@@ -77,6 +79,7 @@ public class WeatherFragment extends Fragment {
         });
 
         //Obtener referencias para el refresco de la UI
+
         porcentaje_rain = weather_view.findViewById(R.id.porcentaje_rain);
         text_max_temp = weather_view.findViewById(R.id.text_max_temp);
         text_min_temp = weather_view.findViewById(R.id.text_min_temp);
@@ -106,6 +109,7 @@ public class WeatherFragment extends Fragment {
         slot3_time = weather_view.findViewById(R.id.slot3_time);
         slot4_time = weather_view.findViewById(R.id.slot4_time);
         municipio = weather_view.findViewById(R.id.municipio);
+        weatherScrollView = weather_view.findViewById(R.id.weatherScrollView);
 
         return weather_view;
     }
@@ -120,6 +124,7 @@ public class WeatherFragment extends Fragment {
         ProgressBar pb = weather_view.findViewById(R.id.load_weather);
         pb.setVisibility(View.INVISIBLE);
 
+        weatherScrollView.setVisibility(View.VISIBLE);
         porcentaje_rain.setVisibility(View.VISIBLE);
         text_max_temp.setVisibility(View.VISIBLE);
         text_min_temp.setVisibility(View.VISIBLE);

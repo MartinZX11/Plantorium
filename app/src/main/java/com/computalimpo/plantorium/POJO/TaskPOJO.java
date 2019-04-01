@@ -11,7 +11,7 @@ import com.computalimpo.plantorium.helper.TaskType;
 @Entity(tableName = "task_table",indices ={@Index("task_crop")},
         foreignKeys = @ForeignKey(entity = CropPOJO.class, parentColumns = "id", childColumns = "task_crop"))
 public class TaskPOJO {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name="task_crop")
     private int crop;
@@ -55,8 +55,7 @@ public class TaskPOJO {
     private String taskText;
     private String priority;
 
-    public TaskPOJO(int id, int crop, String date, String type, String taskText, String priority) {
-        this.id = id;
+    public TaskPOJO(int crop, String date, String type, String taskText, String priority) {
         this.crop = crop;
         this.date = date;
         this.type = type;

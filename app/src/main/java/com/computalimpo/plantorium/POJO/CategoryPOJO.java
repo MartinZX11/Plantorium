@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "category_table")
 
 public class CategoryPOJO {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name="category_name")
@@ -22,6 +22,17 @@ public class CategoryPOJO {
 
     @ColumnInfo(name="category_ill")
     private boolean ill;
+
+    public CategoryPOJO(){
+
+    }
+
+    public CategoryPOJO(String name, boolean water, boolean prune, boolean ill) {
+        this.name = name;
+        this.water = water;
+        this.prune = prune;
+        this.ill = ill;
+    }
 
     public int getId() {
         return id;
