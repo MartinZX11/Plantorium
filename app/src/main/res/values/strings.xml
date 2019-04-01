@@ -31,7 +31,10 @@
     <string name="title_moisture">Porcentaje de humedad</string>
     <string name="today_tab">TODAY</string>
     <string name="tomorrow_tab">TOMORROW</string>
-
+    <string name="scan">SCAN QR</string>
+    <string name="scan_des">Scan a QR code using your phone camera</string>
+    <string name="generate">GENERATE QR</string>
+    <string name="generate_des">Generate a new QR code with the text in the box</string>
 
     <string name="date_format">dd/mm/yyyy</string>
     <string name="hour_format">hh:mm</string>
