@@ -12,8 +12,12 @@ import android.widget.Toast;
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
 import com.computalimpo.plantorium.R;
 import com.computalimpo.plantorium.adapters.CategoryAdapter;
+import com.computalimpo.plantorium.database.CategoryDao;
+import com.computalimpo.plantorium.database.CropsDatabase;
+import com.computalimpo.plantorium.myAsyncTasks.CategoryAsyncTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CropsFragment extends Fragment {
 
@@ -26,16 +30,27 @@ public class CropsFragment extends Fragment {
 
         final View cropView = inflater.inflate(R.layout.fragment_crops, null);
 
+
         FloatingActionButton addCrop = cropView.findViewById(R.id.addCrop);
+        CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask(this);
+
 
         categoryAdapter = new CategoryAdapter(getContext(), R.layout.task_row_header, new ArrayList<CategoryPOJO>());
+        categoryAsyncTask.execute(true);
         GridView cropsGridView = cropView.findViewById(R.id.categoryGridView);
         cropsGridView.setAdapter(categoryAdapter);
-        getMockTask();
+
         addCrop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(cropView.getContext(), R.string.crops, Toast.LENGTH_SHORT).show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                            CropsDatabase.getInstance(getContext()).categoryDao().addCategory(new CategoryPOJO());
+
+                    }
+                }).start();
             }
         });
         return cropView;
@@ -48,5 +63,11 @@ public class CropsFragment extends Fragment {
         }
         categoryAdapter.addAll(categoryList);
         categoryAdapter.notifyDataSetChanged();
+    }
+
+    public void setCategoryAdapter(List<CategoryPOJO> list){
+        categoryAdapter.addAll(list);
+        categoryAdapter.notifyDataSetChanged();
+
     }
 }
