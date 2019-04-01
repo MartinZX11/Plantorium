@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -38,6 +38,16 @@
 
         <activity
             android:name=".AddTaskActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName="com.computalimpo.plantorium.MainActivity" >
+            <!-- The meta-data element is needed for versions lower than 4.1 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.computalimpo.plantorium.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".Scaner"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName="com.computalimpo.plantorium.MainActivity" >
             <!-- The meta-data element is needed for versions lower than 4.1 -->
