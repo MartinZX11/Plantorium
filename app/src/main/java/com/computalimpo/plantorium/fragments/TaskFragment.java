@@ -46,7 +46,7 @@ public class TaskFragment extends Fragment {
     public void getMockTask(){
         ArrayList<TaskPOJO> taskList = new ArrayList<>();
         for(int i = 0; i < 20 ; i ++){
-            taskList.add(new TaskPOJO(i, i,i / 5 + "/10/2019" , TaskType.WATER,"AGUA","" ));
+            taskList.add(new TaskPOJO(i, i,i / 5 + "/10/2019" , "WATER","AGUA","" ));
         }
         String aux;
         aux = taskList.get(0).getDate();

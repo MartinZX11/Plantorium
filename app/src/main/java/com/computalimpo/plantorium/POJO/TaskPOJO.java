@@ -55,7 +55,7 @@ public class TaskPOJO {
     private String taskText;
     private String priority;
 
-    public TaskPOJO(int id, int crop, String date, TaskType type, String taskText, String priority) {
+    public TaskPOJO(int id, int crop, String date, String type, String taskText, String priority) {
         this.id = id;
         this.crop = crop;
         this.date = date;
