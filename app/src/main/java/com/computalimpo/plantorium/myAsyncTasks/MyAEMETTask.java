@@ -1,5 +1,7 @@
 package com.computalimpo.plantorium.myAsyncTasks;
 
+import android.arch.persistence.room.util.StringUtil;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -17,6 +19,7 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.Normalizer;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -58,7 +61,8 @@ public class MyAEMETTask extends AsyncTask<Void, Void, JSONArray> {
         builder.appendPath("municipio");
         builder.appendPath("diaria");
         //Municipio a piñon fijo POR EL MOMENTO
-        builder.appendPath("12104");
+        String res = obtenerCodigoMunicipio("Segorbe");
+        builder.appendPath(res);
         builder.appendPath("");
         builder.appendQueryParameter("api_key", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYXZpZGdpbWVubzg3QGhvdG1haWwuY29tIiwianRpIjoiN2ViMGViYzctOWQ4Zi00Yzg3LTg1NzYtNmQ1YTYxMTBlYmI4IiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NTMwODM1ODgsInVzZXJJZCI6IjdlYjBlYmM3LTlkOGYtNGM4Ny04NTc2LTZkNWE2MTEwZWJiOCIsInJvbGUiOiIifQ.twSOeMoMsJqAo1yd_6EzZ-2BfznPOMOQ3MiXKyGBmLI");
 
@@ -82,6 +86,31 @@ public class MyAEMETTask extends AsyncTask<Void, Void, JSONArray> {
         return result;
     }
 
+    public  String obtenerCodigoMunicipio(String mun) {
+        String res = "";
+        mun = sanitizarString(mun);
+        try {
+            AssetManager assetManager = activity.get().getActivity().getBaseContext().getAssets();
+            InputStreamReader is = new InputStreamReader(assetManager.open("cod_mun.csv"));
+            BufferedReader reader = new BufferedReader(is);
+            reader.readLine();
+            String line;
+            String sectors[];
+            while((line = reader.readLine()) != null) {
+                //Ejem: 10;12;104;2;Segorbe -> ['10', '12', '104', '2', 'Segorbe'] donde cod='12104'
+                sectors = line.split(";");
+                String clean_mun = sanitizarString(sectors[4]);
+                if (mun.equals(clean_mun)) {
+                    res = sectors[1].concat(sectors[2]);
+                }
+                //Log.d("CSV", res);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     public StringBuilder obtenerPrediccionAEMET(String datos) {
         StringBuilder sBuilder = null;
         try {
@@ -101,5 +130,12 @@ public class MyAEMETTask extends AsyncTask<Void, Void, JSONArray> {
         } catch (IOException e) { e.printStackTrace(); }
 
         return sBuilder;
+    }
+
+    public String sanitizarString(String s) {
+        String clean_mun = Normalizer.normalize(s, Normalizer.Form.NFKD);
+        clean_mun = clean_mun.replaceAll("[^\\p{ASCII}]", "");
+        clean_mun = clean_mun.toLowerCase();
+        return clean_mun;
     }
 }
