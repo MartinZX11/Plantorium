@@ -24,6 +24,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+import java.io.IOException;
+
 public class QRFragment extends Fragment {
 
     public QRFragment() {}
@@ -87,9 +89,9 @@ public class QRFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case INTENT_CODE:
-
-                    Toast.makeText(getActivity(), data.getStringExtra("result"), Toast.LENGTH_SHORT).show();
-
+                    if(data != null) {
+                        Toast.makeText(getActivity(), data.getStringExtra("result"), Toast.LENGTH_SHORT).show();
+                    }
                 break;
         }
     }
