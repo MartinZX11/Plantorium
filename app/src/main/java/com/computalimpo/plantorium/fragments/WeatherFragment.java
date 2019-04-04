@@ -8,13 +8,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
@@ -39,44 +44,13 @@ public class WeatherFragment extends Fragment {
     ImageView general_info, min_temp_icon, max_temp_icon, moisture_icon, wind_icon;
     TextView title_prob_rain, title_min_moisture, title_max_moisture, header_time, header_dir, header_speed, slot1_time, slot2_time, slot3_time, slot4_time;
     ScrollView weatherScrollView;
+    Spinner municipios_spinner;
 
     public WeatherFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         weather_view = inflater.inflate(R.layout.fragment_weather, null);
-
-        if (hayConexion()) {
-            weather_task = new MyAEMETTask(this);
-            weather_task.execute();
-        } else {
-            Toast.makeText(getActivity(), "No dispones de conexión a Internet", Toast.LENGTH_SHORT).show();
-        }
-
-        tabs = weather_view.findViewById(R.id.tabLayout);
-        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()) {
-                    case 0:
-                        obtenerWeatherInfo(infoAEMET, 0);
-                        break;
-                    case 1:
-                        obtenerWeatherInfo(infoAEMET, 1);
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
         //Obtener referencias para el refresco de la UI
 
@@ -110,13 +84,111 @@ public class WeatherFragment extends Fragment {
         slot4_time = weather_view.findViewById(R.id.slot4_time);
         municipio = weather_view.findViewById(R.id.municipio);
         weatherScrollView = weather_view.findViewById(R.id.weatherScrollView);
+        municipios_spinner = weather_view.findViewById(R.id.municipios_spinner);
+
+        fillMunicipiosSpinner();
+
+        municipios_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                ((TextView) municipios_spinner.getSelectedView()).setTextColor(getResources().getColor(R.color.colorAccent));
+                String municipio = municipios_spinner.getItemAtPosition(position).toString();
+                //Log.d("MUNICIPIO", municipio);
+                launchAEMETRequest(municipio);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        tabs = weather_view.findViewById(R.id.tabLayout);
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        obtenerWeatherInfo(infoAEMET, 0);
+                        break;
+                    case 1:
+                        obtenerWeatherInfo(infoAEMET, 1);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         return weather_view;
+    }
+
+    public void fillMunicipiosSpinner() {
+        List<String> spinnerArray =  new ArrayList<String>();
+        spinnerArray.add("Segorbe");
+        spinnerArray.add("Sagunto");
+        spinnerArray.add("Cheste");
+        spinnerArray.add("València");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this.getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, spinnerArray);
+
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        municipios_spinner.setAdapter(adapter);
+    }
+
+    public void launchAEMETRequest(String municipio) {
+        if (hayConexion()) {
+            weather_task = new MyAEMETTask(this);
+            weather_task.execute(municipio);
+        } else {
+            Toast.makeText(getActivity(), "No dispones de conexión a Internet", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void loadWeather() {
         ProgressBar pb = weather_view.findViewById(R.id.load_weather);
         pb.setVisibility(View.VISIBLE);
+
+        weatherScrollView.setVisibility(View.INVISIBLE);
+        porcentaje_rain.setVisibility(View.INVISIBLE);
+        text_max_temp.setVisibility(View.INVISIBLE);
+        text_min_temp.setVisibility(View.INVISIBLE);
+        max_moisture.setVisibility(View.INVISIBLE);
+        min_moisture.setVisibility(View.INVISIBLE);
+        slot1_dir.setVisibility(View.INVISIBLE);
+        slot1_speed.setVisibility(View.INVISIBLE);
+        slot2_dir.setVisibility(View.INVISIBLE);
+        slot2_speed.setVisibility(View.INVISIBLE);
+        slot3_dir.setVisibility(View.INVISIBLE);
+        slot3_speed.setVisibility(View.INVISIBLE);
+        slot4_dir.setVisibility(View.INVISIBLE);
+        slot4_speed.setVisibility(View.INVISIBLE);
+        general_info.setVisibility(View.INVISIBLE);
+        title_prob_rain.setVisibility(View.INVISIBLE);
+        min_temp_icon.setVisibility(View.INVISIBLE);
+        max_temp_icon.setVisibility(View.INVISIBLE);
+        moisture_icon.setVisibility(View.INVISIBLE);
+        title_min_moisture.setVisibility(View.INVISIBLE);
+        title_max_moisture.setVisibility(View.INVISIBLE);
+        wind_icon.setVisibility(View.INVISIBLE);
+        header_time.setVisibility(View.INVISIBLE);
+        header_dir.setVisibility(View.INVISIBLE);
+        header_speed.setVisibility(View.INVISIBLE);
+        slot1_time.setVisibility(View.INVISIBLE);
+        slot2_time.setVisibility(View.INVISIBLE);
+        slot3_time.setVisibility(View.INVISIBLE);
+        slot4_time.setVisibility(View.INVISIBLE);
+        municipio.setVisibility(View.INVISIBLE);
     }
 
     public void finishLoadWeather(JSONArray json) {
