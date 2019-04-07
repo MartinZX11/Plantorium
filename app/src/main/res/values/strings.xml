@@ -39,8 +39,14 @@
     <string name="date_format">dd/mm/yyyy</string>
     <string name="hour_format">hh:mm</string>
 
+    <string name="cropName">Name of the crop:</string>
+    <string name="addCrop">Add crop</string>
     <string name="checkBoxWater">Water</string>
     <string name="checkBoxPrune">Prune</string>
     <string name="checkBoxIll">Ill</string>
+
+    <string name="categoryDeleteConfirmation">Are you sure that you want to delete this quotation?</string>
+    <string name="categoryDeleteAccept">Accept</string>
+    <string name="categoryDeleteDenied">Cancel</string>
 
 </resources>

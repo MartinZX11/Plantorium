@@ -19,5 +19,5 @@ public interface CategoryDao {
     void addCategory(CategoryPOJO categoryPOJO);
 
     @Delete
-    void deleteCategpory(CategoryPOJO categoryPOJO);
+    void deleteCategory(CategoryPOJO categoryPOJO);
 }

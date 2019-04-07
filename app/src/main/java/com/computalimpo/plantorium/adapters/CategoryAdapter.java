@@ -49,22 +49,35 @@ public class CategoryAdapter extends ArrayAdapter<CategoryPOJO> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        TaskAdapter.ViewHolder holder = null;
+        ViewHolder holder = new ViewHolder();
 
         if (convertView == null) {
-            holder = new TaskAdapter.ViewHolder();
-            convertView = mInflater.inflate(R.layout.task_row_header, null);
-            holder.textView = (TextView) convertView.findViewById(R.id.text);
+
+            convertView = mInflater.inflate(R.layout.crop_list_item, null);
+            holder.name = (TextView) convertView.findViewById(R.id.category_list_name);
+            holder.id = (TextView) convertView.findViewById(R.id.category_list_id);
 
             convertView.setTag(holder);
-        } else {
-            holder = (TaskAdapter.ViewHolder) convertView.getTag();
         }
+
+        CategoryPOJO currentCategory = (CategoryPOJO) getItem(position);
+        holder = (ViewHolder) convertView.getTag();
+
+        holder.name.setText(currentCategory.getName());
+        String s = String.valueOf( currentCategory.getId());
+        holder.id.setText(s);
 
         return convertView;
     }
 
-    public static class ViewHolder {
-            public TextView textView;
+    private class ViewHolder {
+
+             TextView id;
+             TextView  name;
+
+             public ViewHolder(){
+                 this.name = null;
+                 this.id = null;
+             }
         }
     }

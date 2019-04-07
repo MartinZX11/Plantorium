@@ -24,9 +24,6 @@ public class CategoryAsyncTask extends AsyncTask<Boolean,Void, List<CategoryPOJO
         List<CategoryPOJO> list;
 
         list = CropsDatabase.getInstance(cropFragmentWeakReference.get().getContext()).categoryDao().getCategories();
-
-
-
         return list;
     }
 

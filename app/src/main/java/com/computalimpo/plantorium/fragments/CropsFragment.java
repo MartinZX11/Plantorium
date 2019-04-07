@@ -1,18 +1,25 @@
 package com.computalimpo.plantorium.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
+import android.content.Context;
 
+import com.computalimpo.plantorium.AddCropActivity;
+import com.computalimpo.plantorium.AddTaskActivity;
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
 import com.computalimpo.plantorium.R;
 import com.computalimpo.plantorium.adapters.CategoryAdapter;
 import com.computalimpo.plantorium.database.CategoryDao;
+import com.computalimpo.plantorium.database.CropDao;
 import com.computalimpo.plantorium.database.CropsDatabase;
 import com.computalimpo.plantorium.myAsyncTasks.CategoryAsyncTask;
 
@@ -22,6 +29,7 @@ import java.util.List;
 public class CropsFragment extends Fragment {
 
     CategoryAdapter categoryAdapter;
+    private int gridPosition;
 
     public CropsFragment() {}
 
@@ -35,24 +43,48 @@ public class CropsFragment extends Fragment {
         CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask(this);
 
 
-        categoryAdapter = new CategoryAdapter(getContext(), R.layout.task_row_header, new ArrayList<CategoryPOJO>());
+        categoryAdapter = new CategoryAdapter(getContext(), R.layout.crop_list_item, new ArrayList<CategoryPOJO>());
         categoryAsyncTask.execute(true);
-        GridView cropsGridView = cropView.findViewById(R.id.categoryGridView);
+        final GridView cropsGridView = cropView.findViewById(R.id.categoryGridView);
         cropsGridView.setAdapter(categoryAdapter);
 
         addCrop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                            CropsDatabase.getInstance(getContext()).categoryDao().addCategory(new CategoryPOJO());
-
-                    }
-                }).start();
+                Intent intent = new Intent(getActivity(), AddCropActivity.class);
+                startActivity(intent);
             }
         });
+
+        cropsGridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage(R.string.categoryDeleteConfirmation);
+                gridPosition = position;
+
+                builder.setPositiveButton(R.string.categoryDeleteAccept, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                CategoryPOJO itemClicked = (CategoryPOJO) cropsGridView.getItemAtPosition(gridPosition);
+                                CropsDatabase.getInstance(getContext()).categoryDao().deleteCategory(itemClicked);
+                            }
+                        }).start();
+                    }
+                });
+
+                builder.setNegativeButton(R.string.categoryDeleteDenied, null);
+                builder.create().show();
+                return false;
+            }
+        });
+
+
         return cropView;
     }
 
