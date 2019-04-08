@@ -8,13 +8,13 @@ import android.arch.persistence.room.PrimaryKey;
 
 import com.computalimpo.plantorium.helper.TaskType;
 
-@Entity(tableName = "task_table",indices ={@Index("task_crop")},
-        foreignKeys = @ForeignKey(entity = CropPOJO.class, parentColumns = "id", childColumns = "task_crop"))
+@Entity(tableName = "task_table",indices ={@Index("task_category")},
+        foreignKeys = @ForeignKey(entity = CategoryPOJO.class, parentColumns = "id", childColumns = "task_category"))
 public class TaskPOJO {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    @ColumnInfo(name="task_crop")
-    private int crop;
+    @ColumnInfo(name="task_category")
+    private int category;
     @ColumnInfo(name="task_date")
     private String date;
     @ColumnInfo(name="task_type")
@@ -28,12 +28,12 @@ public class TaskPOJO {
         this.id = id;
     }
 
-    public int getCrop() {
-        return crop;
+    public int getCategory() {
+        return category;
     }
 
-    public void setCrop(int crop) {
-        this.crop = crop;
+    public void setCategory(int category) {
+        this.category = category;
     }
 
     public String getDate() {
@@ -53,14 +53,14 @@ public class TaskPOJO {
     }
 
     private String taskText;
-    private String priority;
 
-    public TaskPOJO(int crop, String date, String type, String taskText, String priority) {
-        this.crop = crop;
+
+    public TaskPOJO(int category, String date, String type, String taskText) {
+
+        this.category = category;
         this.date = date;
         this.type = type;
         this.taskText = taskText;
-        this.priority = priority;
     }
 
     public String getTaskText() {
@@ -71,11 +71,4 @@ public class TaskPOJO {
         this.taskText = taskText;
     }
 
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
 }
