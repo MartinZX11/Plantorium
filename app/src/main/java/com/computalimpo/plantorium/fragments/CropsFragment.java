@@ -15,6 +15,7 @@ import android.content.Context;
 
 import com.computalimpo.plantorium.AddCropActivity;
 import com.computalimpo.plantorium.AddTaskActivity;
+import com.computalimpo.plantorium.CropDetail;
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
 import com.computalimpo.plantorium.R;
 import com.computalimpo.plantorium.adapters.CategoryAdapter;
@@ -81,6 +82,18 @@ public class CropsFragment extends Fragment {
                 builder.setNegativeButton(R.string.categoryDeleteDenied, null);
                 builder.create().show();
                 return false;
+            }
+        });
+
+        cropsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Intent intent = new Intent(getActivity(), CropDetail.class);
+                intent.putExtra("object", categoryAdapter.getItem(position));
+                startActivity(intent);
+
             }
         });
 

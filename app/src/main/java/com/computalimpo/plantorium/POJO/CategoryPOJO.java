@@ -5,9 +5,11 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "category_table")
 
-public class CategoryPOJO {
+public class CategoryPOJO implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
