@@ -45,7 +45,7 @@
     <string name="checkBoxPrune">Prune</string>
     <string name="checkBoxIll">Ill</string>
 
-    <string name="categoryDeleteConfirmation">Are you sure that you want to delete this quotation?</string>
+    <string name="categoryDeleteConfirmation">Are you sure that you want to delete this category?</string>
     <string name="categoryDeleteAccept">Accept</string>
     <string name="categoryDeleteDenied">Cancel</string>
     <string name = "nameTitle">Name:</string>
