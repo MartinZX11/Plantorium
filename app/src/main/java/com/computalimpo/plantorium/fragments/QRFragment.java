@@ -17,8 +17,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.computalimpo.plantorium.CropDetail;
+import com.computalimpo.plantorium.MainActivity;
+import com.computalimpo.plantorium.POJO.CategoryPOJO;
 import com.computalimpo.plantorium.R;
 import com.computalimpo.plantorium.Scaner;
+import com.computalimpo.plantorium.database.CropsDatabase;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -35,7 +39,6 @@ public class QRFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View qrFragment =inflater.inflate(R.layout.fragment_qr, null);
         Button scan = qrFragment.findViewById(R.id.scanear);
-        Button gen = qrFragment.findViewById(R.id.generar);
 
 
         scan.setOnClickListener(new View.OnClickListener() {
@@ -55,31 +58,6 @@ public class QRFragment extends Fragment {
             }
         });
 
-        gen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageView imagen = qrFragment.findViewById(R.id.imagenQR);
-                EditText entrada = qrFragment.findViewById(R.id.entrada);
-                QRCodeWriter writer = new QRCodeWriter();
-                try {
-                    BitMatrix bitMatrix = writer.encode(entrada.getText().toString(), BarcodeFormat.QR_CODE, 512, 512);
-                    int width = bitMatrix.getWidth();
-                    int height = bitMatrix.getHeight();
-                    Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-                    for (int x = 0; x < width; x++) {
-                        for (int y = 0; y < height; y++) {
-                            bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
-                        }
-                    }
-                    imagen.setImageBitmap(bmp);
-
-                } catch (WriterException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-
 
         return qrFragment;
     }
@@ -90,9 +68,37 @@ public class QRFragment extends Fragment {
         switch (requestCode) {
             case INTENT_CODE:
                     if(data != null) {
-                        Toast.makeText(getActivity(), data.getStringExtra("result"), Toast.LENGTH_SHORT).show();
+                        final int id = Integer.parseInt(data.getStringExtra("result"));
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(getActivity(), CropDetail.class);
+                                int isIn = CropsDatabase.getInstance(getContext()).categoryDao().getNum(id);
+                                if (isIn > 0) {
+                                    CategoryPOJO object = CropsDatabase.getInstance(getContext()).categoryDao().getCategoryById(id);
+                                    intent.putExtra("object", object);
+                                    startActivity(intent);
+
+                                } else {
+
+
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            Toast.makeText(getContext(), R.string.scanError, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                }
+
+
+                            }
+                        }).start();
                     }
                 break;
         }
+
+
     }
+
+
 }

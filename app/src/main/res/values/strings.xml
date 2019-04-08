@@ -33,8 +33,7 @@
     <string name="tomorrow_tab">TOMORROW</string>
     <string name="scan">SCAN QR</string>
     <string name="scan_des">Scan a QR code using your phone camera</string>
-    <string name="generate">GENERATE QR</string>
-    <string name="generate_des">Generate a new QR code with the text in the box</string>
+    <string name="scanError">This QR code does not appear in your database</string>
 
     <string name="date_format">dd/mm/yyyy</string>
     <string name="hour_format">hh:mm</string>
@@ -53,4 +52,5 @@
     <string name = "waterTitle">Requires water:</string>
     <string name = "illTitle">Requires treatment:</string>
     <string name = "cropsTitle">Number of crops:</string>
+
 </resources>
