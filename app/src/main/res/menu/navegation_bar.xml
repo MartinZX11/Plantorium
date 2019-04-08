@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/crops"
-        android:icon="@android:drawable/ic_menu_compass"
+    <item
+        android:id="@+id/crops"
+        android:icon="@drawable/oak_tree_icon"
         android:title="@string/crops"
         app:showAsAction="always" />
-    <item android:id="@+id/map"
-        android:icon="@android:drawable/ic_menu_add"
+    <item
+        android:id="@+id/map"
+        android:icon="@drawable/map_icon"
         android:title="@string/map"
         app:showAsAction="always" />
-    <item android:id="@+id/qr"
-        android:icon="@android:drawable/ic_menu_directions"
+    <item
+        android:id="@+id/qr"
+        android:icon="@drawable/qr_code_icon"
         android:title="@string/qr"
         app:showAsAction="always" />
     <item
         android:id="@+id/weather"
-        android:icon="@android:drawable/ic_lock_idle_low_battery"
+        android:icon="@drawable/weather_icon"
         android:title="@string/weather"
         app:showAsAction="always" />
-    <item android:id="@+id/task"
-        android:icon="@android:drawable/ic_menu_directions"
+    <item
+        android:id="@+id/task"
+        android:icon="@drawable/tractor_icon"
         android:title="@string/task"
         app:showAsAction="always" />
 </menu>
