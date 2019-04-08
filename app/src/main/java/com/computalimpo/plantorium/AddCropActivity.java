@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
 import com.computalimpo.plantorium.database.CropsDatabase;
+import com.computalimpo.plantorium.fragments.CropsFragment;
 
 public class AddCropActivity extends AppCompatActivity {
 

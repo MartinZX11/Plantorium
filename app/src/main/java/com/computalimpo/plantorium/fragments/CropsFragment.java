@@ -35,6 +35,15 @@ public class CropsFragment extends Fragment {
     public CropsFragment() {}
 
     @Override
+    public void onResume() {
+        super.onResume();
+        categoryAdapter.clear();
+        CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask(this);
+        categoryAsyncTask.execute(true);
+        categoryAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View cropView = inflater.inflate(R.layout.fragment_crops, null);
@@ -42,7 +51,6 @@ public class CropsFragment extends Fragment {
 
         FloatingActionButton addCrop = cropView.findViewById(R.id.addCrop);
         CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask(this);
-
 
         categoryAdapter = new CategoryAdapter(getContext(), R.layout.crop_list_item, new ArrayList<CategoryPOJO>());
         categoryAsyncTask.execute(true);
@@ -83,7 +91,7 @@ public class CropsFragment extends Fragment {
 
                 builder.setNegativeButton(R.string.categoryDeleteDenied, null);
                 builder.create().show();
-                return false;
+                return true;
             }
         });
 
