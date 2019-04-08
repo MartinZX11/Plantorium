@@ -31,6 +31,11 @@ public class CategoryAdapter extends ArrayAdapter<CategoryPOJO> {
         notifyDataSetChanged();
     }
 
+    public void removeItem(final CategoryPOJO item) {
+        categoryList.remove(item);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return categoryList.size();

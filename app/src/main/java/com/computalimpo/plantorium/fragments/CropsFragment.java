@@ -63,17 +63,19 @@ public class CropsFragment extends Fragment {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setMessage(R.string.categoryDeleteConfirmation);
-                gridPosition = position;
+                final CategoryPOJO cp = categoryAdapter.getItem(position);
 
                 builder.setPositiveButton(R.string.categoryDeleteAccept, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        categoryAdapter.removeItem(cp);
+                        categoryAdapter.notifyDataSetChanged();
+
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                CategoryPOJO itemClicked = (CategoryPOJO) cropsGridView.getItemAtPosition(gridPosition);
-                                CropsDatabase.getInstance(getContext()).categoryDao().deleteCategory(itemClicked);
+                                CropsDatabase.getInstance(getContext()).categoryDao().deleteCategory(cp);
                             }
                         }).start();
                     }
@@ -100,6 +102,7 @@ public class CropsFragment extends Fragment {
 
         return cropView;
     }
+
 
     public void getMockTask(){
         ArrayList<CategoryPOJO> categoryList = new ArrayList<>();

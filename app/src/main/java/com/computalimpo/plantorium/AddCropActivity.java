@@ -45,5 +45,10 @@ public class AddCropActivity extends AppCompatActivity {
         finish();
     }
 
+    public void buttonCancel(View v){
+
+        finish();
+    }
+
 
 }

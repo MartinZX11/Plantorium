@@ -39,8 +39,8 @@
     <string name="date_format">dd/mm/yyyy</string>
     <string name="hour_format">hh:mm</string>
 
-    <string name="cropName">Name of the crop:</string>
-    <string name="addCrop">Add crop</string>
+    <string name="cropName">Name of the Category:</string>
+    <string name="addCrop">Add Category</string>
     <string name="checkBoxWater">Water</string>
     <string name="checkBoxPrune">Prune</string>
     <string name="checkBoxIll">Ill</string>
