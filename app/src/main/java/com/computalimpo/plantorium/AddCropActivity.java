@@ -1,18 +1,34 @@
 package com.computalimpo.plantorium;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
 import com.computalimpo.plantorium.database.CropsDatabase;
 import com.computalimpo.plantorium.fragments.CropsFragment;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
+
 public class AddCropActivity extends AppCompatActivity {
-
-
 
     private EditText categoryName;
     private EditText categoryLocation;
@@ -20,25 +36,92 @@ public class AddCropActivity extends AppCompatActivity {
     private CheckBox ill;
     private CheckBox prune;
     private EditText categoryNumber;
-
+    private Button captureImage;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_crop);
+        categoryName = findViewById(R.id.categoryName);
+        water = findViewById(R.id.checkWater);
+        ill = findViewById(R.id.checkIll);
+        prune = findViewById(R.id.checkPrune);
+        categoryLocation = findViewById(R.id.categoryLocation);
+        categoryNumber = findViewById(R.id.categoryNumber);
+        captureImage = findViewById(R.id.captureButton);
+        imageView = findViewById(R.id.imageCaptured);
+        captureImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPictureDialog();
+            }
+        });
+    }
 
+    private void showPictureDialog(){
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Select photo from gallery",
+                "Capture photo from camera" };
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                choosePhotoFromGallary();
+                                break;
+                            case 1:
+                                takePhotoFromCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
+    }
 
+    public void choosePhotoFromGallary() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(galleryIntent, 0);
+    }
+
+    private void takePhotoFromCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == this.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == 0) {
+            if (data != null) {
+                Uri contentURI = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                    imageView.setImageBitmap(bitmap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(AddCropActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        } else if (requestCode == 1) {
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(thumbnail);
+        }
     }
 
 
     public void addCategory(View view){
-
-        categoryName = (EditText) findViewById(R.id.categoryName);
-        water = (CheckBox) findViewById(R.id.checkWater);
-        ill = (CheckBox) findViewById(R.id.checkIll);
-        prune = (CheckBox) findViewById(R.id.checkPrune);
-        categoryLocation = (EditText) findViewById(R.id.categoryLocation);
-        categoryNumber = (EditText) findViewById(R.id.categoryNumber);
 
         new Thread(new Runnable() {
             @Override
@@ -52,9 +135,6 @@ public class AddCropActivity extends AppCompatActivity {
     }
 
     public void buttonCancel(View v){
-
         finish();
     }
-
-
 }

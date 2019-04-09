@@ -41,10 +41,12 @@
     <string name="cropName">Type of crop:</string>
     <string name="cropLocation">Location of the crop:</string>
     <string name="addCrop">Add Crop</string>
+    <string name="cropRequirements">This category requires:</string>
     <string name="checkBoxWater">Water</string>
     <string name="checkBoxPrune">Prune</string>
     <string name="checkBoxIll">Ill</string>
     <string name = "cropNumber">Number of trees in this crop:</string>
+    <string name = "addCropPhoto">Select or Capture Image:</string>
 
     <string name="categoryDeleteConfirmation">Are you sure that you want to delete this crop?</string>
     <string name="categoryDeleteAccept">Accept</string>
