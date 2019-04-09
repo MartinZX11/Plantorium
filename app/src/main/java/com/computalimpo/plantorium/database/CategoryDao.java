@@ -21,6 +21,12 @@ public interface CategoryDao {
     @Query("Select COUNT(id) FROM category_table WHERE id = :iden  ")
     int getNum(int iden);
 
+    @Query("SELECT category_name FROM category_table")
+    List<String> getCategoryNames();
+
+    @Query("SELECT category_location FROM category_table")
+    List<String> getLocations();
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addCategory(CategoryPOJO categoryPOJO);
