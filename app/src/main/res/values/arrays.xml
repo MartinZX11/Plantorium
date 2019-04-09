@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tasktype">
+        <item>@string/WATER</item>
+        <item>@string/PRUNE</item>
+        <item>@string/ILL</item>
+    </string-array>
+</resources>

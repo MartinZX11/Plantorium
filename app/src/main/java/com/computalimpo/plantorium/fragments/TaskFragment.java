@@ -14,8 +14,10 @@ import com.computalimpo.plantorium.POJO.TaskPOJO;
 import com.computalimpo.plantorium.R;
 import com.computalimpo.plantorium.adapters.TaskAdapter;
 import com.computalimpo.plantorium.helper.TaskType;
+import com.computalimpo.plantorium.myAsyncTasks.TaskAsyncTask;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskFragment extends Fragment {
 
@@ -27,11 +29,14 @@ public class TaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View cropView = inflater.inflate(R.layout.fragment_task, null);
 
+        TaskAsyncTask taskAsyncTask = new TaskAsyncTask(this);
+
         taskAdapter = new TaskAdapter(getContext(), R.layout.task_row_item, new ArrayList<TaskPOJO>());
+
 
         ListView taskList = cropView.findViewById(R.id.taskList);
         taskList.setAdapter(taskAdapter);
-        getMockTask();
+        //getMockTask();
         FloatingActionButton addTask = cropView.findViewById(R.id.addTaskFloatingButton);
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,4 +68,12 @@ public class TaskFragment extends Fragment {
         taskAdapter.notifyDataSetChanged();
         return;
     }
+
+    public void setTaskAdapter(List<TaskPOJO> list){
+        taskAdapter.addAll(list);
+        taskAdapter.notifyDataSetChanged();
+
+    }
+
+
 }

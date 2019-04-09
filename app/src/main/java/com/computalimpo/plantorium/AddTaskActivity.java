@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
+import com.computalimpo.plantorium.POJO.TaskPOJO;
 import com.computalimpo.plantorium.database.CropsDatabase;
 import com.computalimpo.plantorium.fragments.DatePickerFragment;
 
@@ -85,6 +86,18 @@ public class AddTaskActivity extends AppCompatActivity {
     private void addTask(View v){
 
         String s = spinner.getSelectedItem().toString();
+
+        //ToDo Obtener la categoria elegida
+        /*
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                CropsDatabase.getInstance(getApplicationContext()).taskDao().addTask(new TaskPOJO());
+
+            }
+        }).start();
+        finish();*/
 
 
     }

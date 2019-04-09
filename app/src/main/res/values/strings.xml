@@ -9,10 +9,10 @@
     <string name="add_task">Add task</string>
     <string name="cancel">Cancel</string>
     <string name="date_title">Date of task:</string>
-    <string name="subcategory_title">Select subcategory:</string>
-    <string name="crop_title">Select crop:</string>
-    <string name="subcategory_default_message">Select subcategory</string>
-    <string name="crop_default_message">Select crop</string>
+    <string name="subcategory_title">Select category:</string>
+    <string name="crop_title">Select task type:</string>
+    <string name="subcategory_default_message">Select category</string>
+    <string name="crop_default_message">Select task type</string>
     <string name="date_default">Pick a date</string>
     <string name="formato_fecha">dd/mm/yyyy</string>
     <string name="formato_hora">hh:mm</string>
@@ -61,5 +61,9 @@
     <string name = "riesgoAltaProb">Mañana hay una alta probabilidad de llover</string>
     <string name = "riesgoHelada">Mañana hay riesgo de helada, la temperatura mínima es inferior a 3º</string>
     <string name = "riesgoCalido">Mañana hay riesgo de clima muy cálido</string>
+
+    <string name="WATER">WATER</string>
+    <string name="PRUNE">PRUNE</string>
+    <string name="ILL">ILL</string>
 
 </resources>
