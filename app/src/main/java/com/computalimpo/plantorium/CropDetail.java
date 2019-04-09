@@ -30,12 +30,14 @@ public class CropDetail extends AppCompatActivity {
         TextView waterContent = findViewById(R.id.waterContent);
         TextView pruneContent = findViewById(R.id.pruneContent);
         ImageView qrImagen = findViewById(R.id.qrImagen);
+        TextView numberContent = findViewById(R.id.numberContent);
 
         nameContent.setText(object.getName());
         locationContent.setText(object.getLocation());
         illContent.setText(object.isIll() ? "Yes" : "No");
         waterContent.setText(object.isWater() ? "Yes" : "No");
         pruneContent.setText(object.isPrune() ? "Yes" : "No");
+        numberContent.setText(object.getNumber()+ "");
 
         QRCodeWriter writer = new QRCodeWriter();
         try {
