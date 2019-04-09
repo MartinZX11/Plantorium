@@ -54,4 +54,9 @@
     <string name = "illTitle">Requires treatment:</string>
     <string name = "cropsTitle">Number of crops:</string>
 
+    <string name = "riesgoRacha">Mañana se superarán rachas de 50 km/h</string>
+    <string name = "riesgoAltaProb">Mañana hay una alta probabilidad de llover</string>
+    <string name = "riesgoHelada">Mañana hay riesgo de helada, la temperatura mínima es inferior a 3º</string>
+    <string name = "riesgoCalido">Mañana hay riesgo de clima muy cálido</string>
+
 </resources>

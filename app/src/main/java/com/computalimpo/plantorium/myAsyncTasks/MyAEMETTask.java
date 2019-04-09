@@ -1,11 +1,20 @@
 package com.computalimpo.plantorium.myAsyncTasks;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.arch.persistence.room.util.StringUtil;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.computalimpo.plantorium.R;
+import com.computalimpo.plantorium.Receivers.NotificationWeatherReceiver;
 import com.computalimpo.plantorium.fragments.WeatherFragment;
 import com.google.gson.Gson;
 
@@ -21,32 +30,46 @@ import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.Normalizer;
+import java.util.Random;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class MyAEMETTask extends AsyncTask<String, Void, JSONArray> {
-    private WeakReference<WeatherFragment> activity;
+    private WeakReference<WeatherFragment> activity = null;
+    private WeakReference<NotificationWeatherReceiver> receiver = null;
+    BroadcastReceiver.PendingResult pendingResult;
+    private Context myContext;
+    NotificationManager notificationManager;
+    PendingIntent pendingIntent;
+    Boolean acabado = false;
 
-    public MyAEMETTask(WeatherFragment weatherAct){
+    public MyAEMETTask(WeatherFragment weatherAct, NotificationWeatherReceiver receiverAct, Context context){
         this.activity = new WeakReference<>(weatherAct);
+        this.receiver = new WeakReference<>(receiverAct);
+        myContext = context;
+        this.pendingResult = pendingResult;
     }
 
     @Override
     protected void onPreExecute() {
-        this.activity.get().loadWeather();
+        if (activity.get() != null) {
+            this.activity.get().loadWeather();
+        }
         super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(JSONArray s) {
-        this.activity.get().finishLoadWeather(s);
+        if (activity.get() != null) {
+            this.activity.get().finishLoadWeather(s);
+            Log.d("NOTIFICATE", "maaal");
+        }
         super.onPostExecute(s);
     }
 
     @Override
     protected JSONArray doInBackground(String... params) {
         JSONArray result = null;
-
         //////////////////////////////////////////////////////////////////////
         //EN PRIMER LUGAR OBTENEMOS LA RUTA DE LOS DATOS REQUERIDOS DE AEMET//
         /////////////////////////////////////////////////////////////////////
@@ -84,15 +107,78 @@ public class MyAEMETTask extends AsyncTask<String, Void, JSONArray> {
             e.printStackTrace();
         }
 
+        if (activity.get() == null) {
+            //////////////////////////////
+            String title, municipio;
+            int porcentaje_lluvia, min_temp, max_temp;
+
+            int select_dia = 1; //Tiempo de mañana
+
+            try {
+                municipio = result.getJSONObject(0).getString("nombre")  + ", " + result.getJSONObject(0).getString("provincia");
+
+                JSONObject dia = result.getJSONObject(0).getJSONObject("prediccion").getJSONArray("dia").getJSONObject(select_dia);
+
+                porcentaje_lluvia = Integer.parseInt(dia.getJSONArray("probPrecipitacion").getJSONObject(0).getString("value"));
+                max_temp = Integer.parseInt(dia.getJSONObject("temperatura").getString("maxima"));
+                min_temp = Integer.parseInt(dia.getJSONObject("temperatura").getString("minima"));
+
+                //Rachas de viento por franja horaria
+                JSONArray vientos = dia.getJSONArray("viento");
+                JSONObject viento;
+
+                for(int i = 3; i < vientos.length(); i++) {
+                    viento = vientos.getJSONObject(i);
+                    if (Integer.parseInt(viento.getString("velocidad")) > 50) {
+                        makeNotification(myContext.getResources().getString(R.string.riesgoRacha), municipio);
+                        Log.d("NOTIFICATE", "riesgo rachas");
+                    }
+                }
+
+                //Flags para saber que notificaciones crear
+                if (porcentaje_lluvia > 80) {makeNotification(myContext.getResources().getString(R.string.riesgoAltaProb), municipio); Log.d("NOTIFICATE", "alta prob llover"); }
+                if (min_temp < 3) { makeNotification(myContext.getResources().getString(R.string.riesgoHelada), municipio); Log.d("NOTIFICATE", "riesgo helada"); }
+                if (max_temp > 24 && porcentaje_lluvia < 40) { makeNotification(myContext.getResources().getString(R.string.riesgoCalido), municipio); Log.d("NOTIFICATE", "riesgo calido"); }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
         return result;
+    }
+
+    public void makeNotification(String content, String title) {
+        notificationManager = (NotificationManager) myContext.getSystemService(myContext.NOTIFICATION_SERVICE);
+        Intent weather_intent = new Intent(myContext, WeatherFragment.class);
+        weather_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        pendingIntent = PendingIntent.getActivity(myContext, 100, weather_intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(myContext)
+                .setContentIntent(pendingIntent)
+                .setSmallIcon(R.drawable.weather_icon)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setAutoCancel(true);
+
+        //De esta manera se mostrarán de forma individual y no se sobreescriben
+        Random random = new Random();
+        int m = random.nextInt(9999 - 1000) + 1000;
+
+        notificationManager.notify(m, builder.build());
     }
 
     public  String obtenerCodigoMunicipio(String mun) {
         String res = "";
         mun = sanitizarString(mun);
         Integer min_dist_levenshtein = Integer.MAX_VALUE;
+        AssetManager assetManager;
         try {
-            AssetManager assetManager = activity.get().getActivity().getBaseContext().getAssets();
+            if (activity.get() != null) {
+                assetManager = activity.get().getActivity().getBaseContext().getAssets();
+            } else {
+                assetManager = myContext.getAssets();
+            }
             InputStreamReader is = new InputStreamReader(assetManager.open("cod_mun.csv"), "ISO-8859-1");
             BufferedReader reader = new BufferedReader(is);
             reader.readLine();

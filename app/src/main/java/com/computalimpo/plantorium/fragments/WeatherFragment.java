@@ -148,7 +148,7 @@ public class WeatherFragment extends Fragment {
 
     public void launchAEMETRequest(String municipio) {
         if (hayConexion()) {
-            weather_task = new MyAEMETTask(this);
+            weather_task = new MyAEMETTask(this, null, null);
             weather_task.execute(municipio);
         } else {
             Toast.makeText(getActivity(), "No dispones de conexión a Internet", Toast.LENGTH_SHORT).show();
