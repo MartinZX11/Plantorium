@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:text="Type"
             tools:layout_editor_absoluteX="53dp"
             tools:layout_editor_absoluteY="312dp" />
 
@@ -160,6 +160,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
+            android:text="0"
             tools:layout_editor_absoluteX="53dp"
             tools:layout_editor_absoluteY="312dp" />
 
