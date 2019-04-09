@@ -78,11 +78,33 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layoutDetail5"
+                    android:id="@+id/layoutDetail9"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/layoutDetail4">
+
+
+                    <TextView
+                        android:id="@+id/locationTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/locationTitle"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/locationContent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutDetail5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutDetail9">
 
 
                     <TextView

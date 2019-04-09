@@ -28,15 +28,20 @@ public class CategoryPOJO implements Serializable {
     @ColumnInfo(name="category_ill")
     private boolean ill;
 
+    @ColumnInfo(name="category_number")
+    private int number;
+
     public CategoryPOJO(){
 
     }
 
-    public CategoryPOJO(String name, boolean water, boolean prune, boolean ill) {
+    public CategoryPOJO(String name,String location, boolean water, boolean prune, boolean ill, int number) {
         this.name = name;
+        this.location = location;
         this.water = water;
         this.prune = prune;
         this.ill = ill;
+        this.number = number;
     }
 
     public int getId() {
@@ -86,6 +91,10 @@ public class CategoryPOJO implements Serializable {
     public void setIll(boolean ill) {
         this.ill = ill;
     }
+
+    public int getNumber() {return number; }
+
+    public void setNumber(int number) {this.number = number; }
 
 
 }

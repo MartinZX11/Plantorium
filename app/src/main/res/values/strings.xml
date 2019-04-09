@@ -44,6 +44,7 @@
     <string name="checkBoxWater">Water</string>
     <string name="checkBoxPrune">Prune</string>
     <string name="checkBoxIll">Ill</string>
+    <string name = "cropNumber">Number of trees in this crop:</string>
 
     <string name="categoryDeleteConfirmation">Are you sure that you want to delete this category?</string>
     <string name="categoryDeleteAccept">Accept</string>
@@ -53,6 +54,8 @@
     <string name = "waterTitle">Requires water:</string>
     <string name = "illTitle">Requires treatment:</string>
     <string name = "cropsTitle">Number of crops:</string>
+    <string name = "locationTitle">Location of the crops:</string>
+
 
     <string name = "riesgoRacha">Mañana se superarán rachas de 50 km/h</string>
     <string name = "riesgoAltaProb">Mañana hay una alta probabilidad de llover</string>

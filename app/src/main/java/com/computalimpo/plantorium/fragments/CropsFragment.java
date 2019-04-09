@@ -34,7 +34,7 @@ public class CropsFragment extends Fragment {
 
     public CropsFragment() {}
 
-    /*
+
     @Override
     public void onResume() {
         super.onResume();
@@ -43,7 +43,7 @@ public class CropsFragment extends Fragment {
         categoryAsyncTask.execute(true);
         categoryAdapter.notifyDataSetChanged();
     }
-*/
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -54,7 +54,7 @@ public class CropsFragment extends Fragment {
         CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask(this);
 
         categoryAdapter = new CategoryAdapter(getContext(), R.layout.crop_list_item, new ArrayList<CategoryPOJO>());
-        categoryAsyncTask.execute(true);
+        //categoryAsyncTask.execute(true);
         final GridView cropsGridView = cropView.findViewById(R.id.categoryGridView);
         cropsGridView.setAdapter(categoryAdapter);
 

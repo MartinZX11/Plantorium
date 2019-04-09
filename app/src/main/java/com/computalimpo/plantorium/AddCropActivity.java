@@ -15,9 +15,12 @@ public class AddCropActivity extends AppCompatActivity {
 
 
     private EditText categoryName;
+    private EditText categoryLocation;
     private CheckBox water;
     private CheckBox ill;
     private CheckBox prune;
+    private EditText categoryNumber;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,14 @@ public class AddCropActivity extends AppCompatActivity {
         water = (CheckBox) findViewById(R.id.checkWater);
         ill = (CheckBox) findViewById(R.id.checkIll);
         prune = (CheckBox) findViewById(R.id.checkPrune);
+        categoryLocation = (EditText) findViewById(R.id.categoryLocation);
+        categoryNumber = (EditText) findViewById(R.id.categoryNumber);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                CropsDatabase.getInstance(getApplicationContext()).categoryDao().addCategory(new CategoryPOJO(categoryName.getText().toString(),water.isChecked(), prune.isChecked(),ill.isChecked()));
+                CropsDatabase.getInstance(getApplicationContext()).categoryDao().addCategory(new CategoryPOJO(categoryName.getText().toString(), categoryLocation.getText().toString(),water.isChecked(), prune.isChecked(),ill.isChecked(), Integer.parseInt(categoryNumber.getText().toString())));
 
             }
         }).start();

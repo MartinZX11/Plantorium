@@ -25,12 +25,14 @@ public class CropDetail extends AppCompatActivity {
         CategoryPOJO object = (CategoryPOJO) intent.getSerializableExtra("object");
 
         TextView nameContent = findViewById(R.id.nameContent);
+        TextView locationContent = findViewById(R.id.locationContent);
         TextView illContent = findViewById(R.id.illContent);
         TextView waterContent = findViewById(R.id.waterContent);
         TextView pruneContent = findViewById(R.id.pruneContent);
         ImageView qrImagen = findViewById(R.id.qrImagen);
 
         nameContent.setText(object.getName());
+        locationContent.setText(object.getLocation());
         illContent.setText(object.isIll() ? "Yes" : "No");
         waterContent.setText(object.isWater() ? "Yes" : "No");
         pruneContent.setText(object.isPrune() ? "Yes" : "No");
