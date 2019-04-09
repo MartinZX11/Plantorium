@@ -34,6 +34,7 @@ public class CropsFragment extends Fragment {
 
     public CropsFragment() {}
 
+    /*
     @Override
     public void onResume() {
         super.onResume();
@@ -42,7 +43,7 @@ public class CropsFragment extends Fragment {
         categoryAsyncTask.execute(true);
         categoryAdapter.notifyDataSetChanged();
     }
-
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

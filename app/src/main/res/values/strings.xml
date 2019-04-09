@@ -39,6 +39,7 @@
     <string name="hour_format">hh:mm</string>
 
     <string name="cropName">Name of the Category:</string>
+    <string name="cropLocation">Location of the category:</string>
     <string name="addCrop">Add Category</string>
     <string name="checkBoxWater">Water</string>
     <string name="checkBoxPrune">Prune</string>

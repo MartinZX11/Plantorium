@@ -80,8 +80,6 @@ public class QRFragment extends Fragment {
                                     startActivity(intent);
 
                                 } else {
-
-
                                     getActivity().runOnUiThread(new Runnable() {
                                         public void run() {
                                             Toast.makeText(getContext(), R.string.scanError, Toast.LENGTH_SHORT).show();

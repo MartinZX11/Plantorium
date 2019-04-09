@@ -68,6 +68,37 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/cropLocation"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="243dp" />
+
+        <EditText
+            android:id="@+id/categoryLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Location"
+            tools:layout_editor_absoluteX="53dp"
+            tools:layout_editor_absoluteY="312dp" />
+
+    </LinearLayout>
+
     <CheckBox
         android:id="@+id/checkWater"
         android:layout_width="wrap_content"
@@ -79,7 +110,7 @@
         android:text="@string/checkBoxWater"
         app:layout_constraintBottom_toTopOf="@+id/checkPrune"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
         app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <CheckBox

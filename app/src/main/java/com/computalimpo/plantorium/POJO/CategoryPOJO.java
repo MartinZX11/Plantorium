@@ -16,6 +16,9 @@ public class CategoryPOJO implements Serializable {
     @ColumnInfo(name="category_name")
     private String name;
 
+    @ColumnInfo(name="category_location")
+    private String location;
+
     @ColumnInfo(name="category_water")
     private boolean water;
 
@@ -48,8 +51,16 @@ public class CategoryPOJO implements Serializable {
         return name;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public boolean isWater() {
