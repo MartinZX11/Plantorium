@@ -1,14 +1,26 @@
 package com.computalimpo.plantorium;
 
+import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
 import com.computalimpo.plantorium.database.CropsDatabase;
@@ -46,6 +58,10 @@ public class CropDetail extends AppCompatActivity {
         numberContent.setText(object.getNumber()+ "");
 
         QRCodeWriter writer = new QRCodeWriter();
+        final Bitmap image;
+        final String location = object.getLocation();
+        final String name = object.getName();
+
         try {
             BitMatrix bitMatrix = writer.encode("" + object.getId(), BarcodeFormat.QR_CODE, 512, 512);
             int width = bitMatrix.getWidth();
@@ -57,13 +73,46 @@ public class CropDetail extends AppCompatActivity {
                 }
             }
             qrImagen.setImageBitmap(bmp);
-            //saveToInternalStorage(bmp);
+            image = bmp;
+            Button qrButton = findViewById(R.id.qrButton);
+            qrButton.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int checkWriteablePermission =
+                                    ContextCompat.checkSelfPermission(CropDetail.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                            if (PackageManager.PERMISSION_GRANTED == checkWriteablePermission) {
+                                MediaStore.Images.Media.insertImage(getContentResolver(), image, location+name , "Description");
+                                Toast.makeText(getApplicationContext(), R.string.qrTitle, Toast.LENGTH_SHORT).show();
+                            } else {
+                                ActivityCompat.requestPermissions(
+                                        CropDetail.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                            }
+
+                        }
+                    }
+
+            );
 
         } catch (WriterException e) {
             e.printStackTrace();
         }
 
 
+
+
+
+    }
+
+    public static void addImageToGallery(final String filePath, final Context context) {
+
+        ContentValues values = new ContentValues();
+
+        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        values.put(MediaStore.MediaColumns.DATA, filePath + "/profile.jpeg");
+
+        context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
     }
 
 
@@ -73,13 +122,13 @@ public class CropDetail extends AppCompatActivity {
         // path to /data/data/yourapp/app_data/imageDir
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
         // Create imageDir
-        File mypath=new File(directory,"profile.jpg");
+        File mypath=new File(directory,"profile.jpeg");
 
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(mypath);
             // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

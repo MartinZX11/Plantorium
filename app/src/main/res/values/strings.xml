@@ -34,6 +34,8 @@
     <string name="scan">SCAN QR</string>
     <string name="scan_des">Scan a QR code using your phone camera</string>
     <string name="scanError">This QR code does not appear in your database</string>
+    <string name="qrButton">Save QR image</string>
+    <string name="qrTitle">QR image successfully saved</string>
 
     <string name="date_format">dd/mm/yyyy</string>
     <string name="hour_format">hh:mm</string>
