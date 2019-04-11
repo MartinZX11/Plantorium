@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
@@ -47,9 +48,15 @@ public class CropDetail extends AppCompatActivity {
         TextView illContent = findViewById(R.id.illContent);
         TextView waterContent = findViewById(R.id.waterContent);
         TextView pruneContent = findViewById(R.id.pruneContent);
+        ImageView categoryImage = findViewById(R.id.categoryImage);
         ImageView qrImagen = findViewById(R.id.qrImagen);
         TextView numberContent = findViewById(R.id.numberContent);
 
+        String str = object.getImage();
+        byte data[]= android.util.Base64.decode(str, android.util.Base64.DEFAULT);
+        Bitmap categoryBitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+        categoryImage.setImageBitmap(categoryBitmap);
         nameContent.setText(object.getName());
         locationContent.setText(object.getLocation());
         illContent.setText(object.isIll() ? "Yes" : "No");

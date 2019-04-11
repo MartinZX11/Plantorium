@@ -1,10 +1,13 @@
 package com.computalimpo.plantorium.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
@@ -59,8 +62,9 @@ public class CategoryAdapter extends ArrayAdapter<CategoryPOJO> {
         if (convertView == null) {
 
             convertView = mInflater.inflate(R.layout.crop_list_item, null);
-            holder.name = (TextView) convertView.findViewById(R.id.category_list_name);
-            holder.id = (TextView) convertView.findViewById(R.id.category_list_id);
+            holder.name = convertView.findViewById(R.id.category_list_name);
+            holder.id = convertView.findViewById(R.id.category_list_id);
+            holder.imageView = convertView.findViewById(R.id.imageView);
 
             convertView.setTag(holder);
         }
@@ -69,8 +73,14 @@ public class CategoryAdapter extends ArrayAdapter<CategoryPOJO> {
         holder = (ViewHolder) convertView.getTag();
 
         holder.name.setText(currentCategory.getName());
-        String s = String.valueOf( currentCategory.getId());
+        String s = String.valueOf("X" + currentCategory.getNumber());
         holder.id.setText(s);
+
+        String str = currentCategory.getImage();
+        byte data[]= android.util.Base64.decode(str, android.util.Base64.DEFAULT);
+        Bitmap categoryBitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+        holder.imageView.setImageBitmap(categoryBitmap);
 
         return convertView;
     }
@@ -79,8 +89,9 @@ public class CategoryAdapter extends ArrayAdapter<CategoryPOJO> {
 
              TextView id;
              TextView  name;
-
+             ImageView imageView;
              public ViewHolder(){
+                 this.imageView = null;
                  this.name = null;
                  this.id = null;
              }

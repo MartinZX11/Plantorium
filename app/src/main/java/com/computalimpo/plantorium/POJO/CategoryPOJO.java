@@ -31,17 +31,21 @@ public class CategoryPOJO implements Serializable {
     @ColumnInfo(name="category_number")
     private int number;
 
+    @ColumnInfo(name="category_image")
+    private String image;
+
     public CategoryPOJO(){
 
     }
 
-    public CategoryPOJO(String name,String location, boolean water, boolean prune, boolean ill, int number) {
+    public CategoryPOJO(String name, String location, boolean water, boolean prune, boolean ill, int number, String image) {
         this.name = name;
         this.location = location;
         this.water = water;
         this.prune = prune;
         this.ill = ill;
         this.number = number;
+        this.image = image;
     }
 
     public int getId() {
@@ -96,5 +100,11 @@ public class CategoryPOJO implements Serializable {
 
     public void setNumber(int number) {this.number = number; }
 
+    public String getImage() {
+        return image;
+    }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

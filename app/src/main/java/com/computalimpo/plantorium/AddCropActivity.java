@@ -3,6 +3,7 @@ package com.computalimpo.plantorium;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
@@ -10,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -57,6 +59,7 @@ public class AddCropActivity extends AppCompatActivity {
                 showPictureDialog();
             }
         });
+        imageView.setImageDrawable(getResources().getDrawable(R.drawable.oak_tree_icon));
     }
 
     private void showPictureDialog(){
@@ -123,15 +126,45 @@ public class AddCropActivity extends AppCompatActivity {
 
     public void addCategory(View view){
 
+        final Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+        final Bitmap newBitmap = resize(bitmap, 200,200);
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                CropsDatabase.getInstance(getApplicationContext()).categoryDao().addCategory(new CategoryPOJO(categoryName.getText().toString(), categoryLocation.getText().toString(),water.isChecked(), prune.isChecked(),ill.isChecked(), Integer.parseInt(categoryNumber.getText().toString())));
+                CropsDatabase.getInstance(getApplicationContext()).categoryDao().addCategory(new CategoryPOJO(categoryName.getText().toString(), categoryLocation.getText().toString(),water.isChecked(), prune.isChecked(),ill.isChecked(), Integer.parseInt(categoryNumber.getText().toString()), getStringImage(newBitmap)));
 
             }
         }).start();
         finish();
+    }
+
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        return android.util.Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
+    private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
+        if (maxHeight > 0 && maxWidth > 0) {
+            int width = image.getWidth();
+            int height = image.getHeight();
+            float ratioBitmap = (float) width / (float) height;
+            float ratioMax = (float) maxWidth / (float) maxHeight;
+
+            int finalWidth = maxWidth;
+            int finalHeight = maxHeight;
+            if (ratioMax > ratioBitmap) {
+                finalWidth = (int) ((float)maxHeight * ratioBitmap);
+            } else {
+                finalHeight = (int) ((float)maxWidth / ratioBitmap);
+            }
+            image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
+            return image;
+        } else {
+            return image;
+        }
     }
 
     public void buttonCancel(View v){
