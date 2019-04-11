@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         /////////////////////////////////////////////////////////////
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
-        calendar.set(Calendar.MINUTE, 12);
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 30);
 
         Intent intent = new Intent(getApplicationContext(), NotificationWeatherReceiver.class);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);

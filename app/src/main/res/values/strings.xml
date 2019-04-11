@@ -59,10 +59,15 @@
     <string name = "locationTitle">Location of the crop:</string>
     <string name = "numberTitle">Number of trees:</string>
 
-    <string name = "riesgoRacha">Mañana se superarán rachas de 50 km/h</string>
-    <string name = "riesgoAltaProb">Mañana hay una alta probabilidad de llover</string>
-    <string name = "riesgoHelada">Mañana hay riesgo de helada, la temperatura mínima es inferior a 3º</string>
-    <string name = "riesgoCalido">Mañana hay riesgo de clima muy cálido</string>
+    <string name = "riesgoRacha">Tomorrow winds of 50 km/h will be overcome</string>
+    <string name = "riesgoAltaProb">Tomorrow there is a high probability of rain</string>
+    <string name = "riesgoHelada">Tomorrow there is a risk of frost, the minimum temperature is less than 3º</string>
+    <string name = "riesgoCalido">Tomorrow there is a risk of very hot and dry weather</string>
+
+    <string name = "titleDialogNoMunicipios">You don\'t have any crop</string>
+    <string name = "dialogNoMunicipios">No locations are available on which to report the weather</string>
+    <string name = "titleDialogNoFound">There was a problem</string>
+    <string name = "dialogNoFound">The location could not be found</string>
 
     <string name="WATER">WATER</string>
     <string name="PRUNE">PRUNE</string>

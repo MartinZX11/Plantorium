@@ -1,5 +1,6 @@
 package com.computalimpo.plantorium.fragments;
 
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.computalimpo.plantorium.R;
+import com.computalimpo.plantorium.database.CropsDatabase;
 import com.computalimpo.plantorium.myAsyncTasks.MyAEMETTask;
 
 import org.json.JSONArray;
@@ -45,6 +48,7 @@ public class WeatherFragment extends Fragment {
     TextView title_prob_rain, title_min_moisture, title_max_moisture, header_time, header_dir, header_speed, slot1_time, slot2_time, slot3_time, slot4_time;
     ScrollView weatherScrollView;
     Spinner municipios_spinner;
+    Boolean notFound = false;
 
     public WeatherFragment() {}
 
@@ -86,7 +90,19 @@ public class WeatherFragment extends Fragment {
         weatherScrollView = weather_view.findViewById(R.id.weatherScrollView);
         municipios_spinner = weather_view.findViewById(R.id.municipios_spinner);
 
-        fillMunicipiosSpinner();
+        List<String> spinnerArray =  new ArrayList<String>();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getContext(), android.R.layout.simple_spinner_item, spinnerArray);
+
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        municipios_spinner.setAdapter(adapter);
+
+        try {
+            fillMunicipiosSpinner();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         municipios_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -95,11 +111,12 @@ public class WeatherFragment extends Fragment {
                 String municipio = municipios_spinner.getItemAtPosition(position).toString();
                 //Log.d("MUNICIPIO", municipio);
                 launchAEMETRequest(municipio);
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
+
             }
 
         });
@@ -110,10 +127,14 @@ public class WeatherFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        obtenerWeatherInfo(infoAEMET, 0);
+                        if ((municipios_spinner.getAdapter().getCount() > 0) && !notFound) {
+                            obtenerWeatherInfo(infoAEMET, 0);
+                        }
                         break;
                     case 1:
-                        obtenerWeatherInfo(infoAEMET, 1);
+                        if ((municipios_spinner.getAdapter().getCount() > 0) && !notFound) {
+                            obtenerWeatherInfo(infoAEMET, 1);
+                        }
                         break;
                 }
             }
@@ -132,18 +153,47 @@ public class WeatherFragment extends Fragment {
         return weather_view;
     }
 
-    public void fillMunicipiosSpinner() {
-        List<String> spinnerArray =  new ArrayList<String>();
-        spinnerArray.add("Segorbe");
+    public void fillMunicipiosSpinner() throws InterruptedException {
+        final List<String> spinnerArray =  new ArrayList<String>();
+        /*spinnerArray.add("Segorbe");
         spinnerArray.add("Sagunto");
         spinnerArray.add("Cheste");
-        spinnerArray.add("València");
+        spinnerArray.add("València");*/
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<String> myLocations = CropsDatabase.getInstance(getContext()).categoryDao().getLocations();
+                //Log.d("LOCATIONS", myLocations.size() + "");
+                //Log.d("LOCATIONS", myLocations.get(0) + "");
+                spinnerArray.addAll(myLocations);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this.getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, spinnerArray);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                        getContext(), android.R.layout.simple_spinner_item, spinnerArray);
 
-        adapter.setDropDownViewResource(R.layout.spinner_item);
-        municipios_spinner.setAdapter(adapter);
+                adapter.setDropDownViewResource(R.layout.spinner_item);
+                municipios_spinner.setAdapter(adapter);
+                municipios_spinner.setSelection(0);
+            }
+        });
+        t.start();
+        t.join();
+        if (municipios_spinner.getSelectedItem() == null) {
+            showDialogNoMunicipios(R.string.titleDialogNoMunicipios, R.string.dialogNoMunicipios);
+        }
+
+    }
+
+    public void showDialogNoMunicipios(int title, int content) {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle(getResources().getString(title));
+        alertDialog.setMessage(getResources().getString(content));
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     public void launchAEMETRequest(String municipio) {
@@ -196,47 +246,50 @@ public class WeatherFragment extends Fragment {
         ProgressBar pb = weather_view.findViewById(R.id.load_weather);
         pb.setVisibility(View.INVISIBLE);
 
-        weatherScrollView.setVisibility(View.VISIBLE);
-        porcentaje_rain.setVisibility(View.VISIBLE);
-        text_max_temp.setVisibility(View.VISIBLE);
-        text_min_temp.setVisibility(View.VISIBLE);
-        max_moisture.setVisibility(View.VISIBLE);
-        min_moisture.setVisibility(View.VISIBLE);
-        slot1_dir.setVisibility(View.VISIBLE);
-        slot1_speed.setVisibility(View.VISIBLE);
-        slot2_dir.setVisibility(View.VISIBLE);
-        slot2_speed.setVisibility(View.VISIBLE);
-        slot3_dir.setVisibility(View.VISIBLE);
-        slot3_speed.setVisibility(View.VISIBLE);
-        slot4_dir.setVisibility(View.VISIBLE);
-        slot4_speed.setVisibility(View.VISIBLE);
-        general_info.setVisibility(View.VISIBLE);
-        title_prob_rain.setVisibility(View.VISIBLE);
-        min_temp_icon.setVisibility(View.VISIBLE);
-        max_temp_icon.setVisibility(View.VISIBLE);
-        moisture_icon.setVisibility(View.VISIBLE);
-        title_min_moisture.setVisibility(View.VISIBLE);
-        title_max_moisture.setVisibility(View.VISIBLE);
-        wind_icon.setVisibility(View.VISIBLE);
-        header_time.setVisibility(View.VISIBLE);
-        header_dir.setVisibility(View.VISIBLE);
-        header_speed.setVisibility(View.VISIBLE);
-        slot1_time.setVisibility(View.VISIBLE);
-        slot2_time.setVisibility(View.VISIBLE);
-        slot3_time.setVisibility(View.VISIBLE);
-        slot4_time.setVisibility(View.VISIBLE);
-        municipio.setVisibility(View.VISIBLE);
+        if (json != null) {
+            notFound = false;
+            weatherScrollView.setVisibility(View.VISIBLE);
+            porcentaje_rain.setVisibility(View.VISIBLE);
+            text_max_temp.setVisibility(View.VISIBLE);
+            text_min_temp.setVisibility(View.VISIBLE);
+            max_moisture.setVisibility(View.VISIBLE);
+            min_moisture.setVisibility(View.VISIBLE);
+            slot1_dir.setVisibility(View.VISIBLE);
+            slot1_speed.setVisibility(View.VISIBLE);
+            slot2_dir.setVisibility(View.VISIBLE);
+            slot2_speed.setVisibility(View.VISIBLE);
+            slot3_dir.setVisibility(View.VISIBLE);
+            slot3_speed.setVisibility(View.VISIBLE);
+            slot4_dir.setVisibility(View.VISIBLE);
+            slot4_speed.setVisibility(View.VISIBLE);
+            general_info.setVisibility(View.VISIBLE);
+            title_prob_rain.setVisibility(View.VISIBLE);
+            min_temp_icon.setVisibility(View.VISIBLE);
+            max_temp_icon.setVisibility(View.VISIBLE);
+            moisture_icon.setVisibility(View.VISIBLE);
+            title_min_moisture.setVisibility(View.VISIBLE);
+            title_max_moisture.setVisibility(View.VISIBLE);
+            wind_icon.setVisibility(View.VISIBLE);
+            header_time.setVisibility(View.VISIBLE);
+            header_dir.setVisibility(View.VISIBLE);
+            header_speed.setVisibility(View.VISIBLE);
+            slot1_time.setVisibility(View.VISIBLE);
+            slot2_time.setVisibility(View.VISIBLE);
+            slot3_time.setVisibility(View.VISIBLE);
+            slot4_time.setVisibility(View.VISIBLE);
+            municipio.setVisibility(View.VISIBLE);
 
-        //Ya puede interaccionar el usario, el cual se encuenra en el today_info
-        //tomorrowButton.setVisibility(View.VISIBLE);
-        ////Referencia al JSON de AEMET////
-        infoAEMET = json;
+            //Ya puede interaccionar el usario, el cual se encuenra en el today_info
+            //tomorrowButton.setVisibility(View.VISIBLE);
+            ////Referencia al JSON de AEMET////
+            infoAEMET = json;
 
-        //Obtener datos de hoy(valor 0)
-        obtenerWeatherInfo(json, 0);
-
-        //Actualizar interfaz gráfica
-        //refreshUI(info_weather);
+            //Obtener datos de hoy(valor 0)
+            obtenerWeatherInfo(json, 0);
+        } else {
+            notFound = true;
+            showDialogNoMunicipios(R.string.titleDialogNoFound, R.string.dialogNoFound);
+        }
 
     }
 

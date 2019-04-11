@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.computalimpo.plantorium.MainActivity;
 import com.computalimpo.plantorium.R;
+import com.computalimpo.plantorium.database.CropsDatabase;
 import com.computalimpo.plantorium.fragments.WeatherFragment;
 import com.computalimpo.plantorium.myAsyncTasks.MyAEMETTask;
 
@@ -20,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
@@ -35,12 +37,18 @@ public class NotificationWeatherReceiver extends BroadcastReceiver {
 
         //PETICION DE DATOS A LA API DE AEMET
         //Se deberán recuperar los distintos municipios de la bbdd
-        String municipios[] = {"Segorbe", "Sagunto", "Cheste"};
-        Integer cont = 0;
-        for (int i = 0; i < municipios.length; i++) {
-            launchAEMETRequest(municipios[i]);
-            Log.d("NOTIFICATE", "se piden datos de " + municipios[i]);
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<String> myLocations = CropsDatabase.getInstance(myContext).categoryDao().getLocations();
+                if (myLocations.size() > 0) {
+                    for (int i = 0; i < myLocations.size(); i++) {
+                        launchAEMETRequest(myLocations.get(i));
+                        Log.d("NOTIFICATE", "se piden datos de " + myLocations.get(i));
+                    }
+                }
+            }
+        }).start();
     }
 
     public void launchAEMETRequest(String municipio) {

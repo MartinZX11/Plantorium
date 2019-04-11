@@ -86,79 +86,91 @@ public class MyAEMETTask extends AsyncTask<String, Void, JSONArray> {
         builder.appendPath("diaria");
         //Municipio a piñon fijo POR EL MOMENTO
         String res = obtenerCodigoMunicipio(params[0]);
-        builder.appendPath(res);
-        builder.appendPath("");
-        builder.appendQueryParameter("api_key", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYXZpZGdpbWVubzg3QGhvdG1haWwuY29tIiwianRpIjoiN2ViMGViYzctOWQ4Zi00Yzg3LTg1NzYtNmQ1YTYxMTBlYmI4IiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NTMwODM1ODgsInVzZXJJZCI6IjdlYjBlYmM3LTlkOGYtNGM4Ny04NTc2LTZkNWE2MTEwZWJiOCIsInJvbGUiOiIifQ.twSOeMoMsJqAo1yd_6EzZ-2BfznPOMOQ3MiXKyGBmLI");
-
-        try {
-            StringBuilder sb = obtenerPrediccionAEMET(builder.build().toString());
-            JSONObject jsonObject = new JSONObject(sb.toString());
-            String datos = jsonObject.getString("datos");
-
-            //////////////////////////////////////////////////
-            //AHORA OBTENEMOS EL JSON DE LA PREDICCION AEMET//
-            //////////////////////////////////////////////////
-            sb = obtenerPrediccionAEMET(datos);
-            //Log.d("AVORE", sb.toString());
-
-            result = new JSONArray(sb.toString());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        if (activity.get() == null) {
-            //////////////////////////////
-            String title, municipio;
-            int porcentaje_lluvia, min_temp, max_temp;
-
-            int select_dia = 1; //Tiempo de mañana
+        if (!res.equals("")) {
+            builder.appendPath(res);
+            builder.appendPath("");
+            builder.appendQueryParameter("api_key", "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYXZpZGdpbWVubzg3QGhvdG1haWwuY29tIiwianRpIjoiN2ViMGViYzctOWQ4Zi00Yzg3LTg1NzYtNmQ1YTYxMTBlYmI4IiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE1NTMwODM1ODgsInVzZXJJZCI6IjdlYjBlYmM3LTlkOGYtNGM4Ny04NTc2LTZkNWE2MTEwZWJiOCIsInJvbGUiOiIifQ.twSOeMoMsJqAo1yd_6EzZ-2BfznPOMOQ3MiXKyGBmLI");
 
             try {
-                municipio = result.getJSONObject(0).getString("nombre")  + ", " + result.getJSONObject(0).getString("provincia");
+                StringBuilder sb = obtenerPrediccionAEMET(builder.build().toString());
+                JSONObject jsonObject = new JSONObject(sb.toString());
+                String datos = jsonObject.getString("datos");
 
-                JSONObject dia = result.getJSONObject(0).getJSONObject("prediccion").getJSONArray("dia").getJSONObject(select_dia);
+                //////////////////////////////////////////////////
+                //AHORA OBTENEMOS EL JSON DE LA PREDICCION AEMET//
+                //////////////////////////////////////////////////
+                sb = obtenerPrediccionAEMET(datos);
+                //Log.d("AVORE", sb.toString());
 
-                porcentaje_lluvia = Integer.parseInt(dia.getJSONArray("probPrecipitacion").getJSONObject(0).getString("value"));
-                max_temp = Integer.parseInt(dia.getJSONObject("temperatura").getString("maxima"));
-                min_temp = Integer.parseInt(dia.getJSONObject("temperatura").getString("minima"));
-
-                //Rachas de viento por franja horaria
-                JSONArray vientos = dia.getJSONArray("viento");
-                JSONObject viento;
-
-                for(int i = 3; i < vientos.length(); i++) {
-                    viento = vientos.getJSONObject(i);
-                    if (Integer.parseInt(viento.getString("velocidad")) > 50) {
-                        makeNotification(myContext.getResources().getString(R.string.riesgoRacha), municipio);
-                        Log.d("NOTIFICATE", "riesgo rachas");
-                    }
-                }
-
-                //Flags para saber que notificaciones crear
-                if (porcentaje_lluvia > 80) {makeNotification(myContext.getResources().getString(R.string.riesgoAltaProb), municipio); Log.d("NOTIFICATE", "alta prob llover"); }
-                if (min_temp < 3) { makeNotification(myContext.getResources().getString(R.string.riesgoHelada), municipio); Log.d("NOTIFICATE", "riesgo helada"); }
-                if (max_temp > 24 && porcentaje_lluvia < 40) { makeNotification(myContext.getResources().getString(R.string.riesgoCalido), municipio); Log.d("NOTIFICATE", "riesgo calido"); }
+                result = new JSONArray(sb.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-        }
+            if (activity.get() == null) {
+                //////////////////////////////
+                String title, municipio;
+                int porcentaje_lluvia, min_temp, max_temp;
 
+                int select_dia = 1; //Tiempo de mañana
+
+                try {
+                    municipio = result.getJSONObject(0).getString("nombre") + ", " + result.getJSONObject(0).getString("provincia");
+
+                    JSONObject dia = result.getJSONObject(0).getJSONObject("prediccion").getJSONArray("dia").getJSONObject(select_dia);
+
+                    porcentaje_lluvia = Integer.parseInt(dia.getJSONArray("probPrecipitacion").getJSONObject(0).getString("value"));
+                    max_temp = Integer.parseInt(dia.getJSONObject("temperatura").getString("maxima"));
+                    min_temp = Integer.parseInt(dia.getJSONObject("temperatura").getString("minima"));
+
+                    //Rachas de viento por franja horaria
+                    JSONArray vientos = dia.getJSONArray("viento");
+                    JSONObject viento;
+
+                    for (int i = 3; i < vientos.length(); i++) {
+                        viento = vientos.getJSONObject(i);
+                        if (Integer.parseInt(viento.getString("velocidad")) > 50) {
+                            makeNotification(myContext.getResources().getString(R.string.riesgoRacha), municipio, R.drawable.wind_risk);
+                            Log.d("NOTIFICATE", "riesgo rachas");
+                            break;
+                        }
+                    }
+
+                    //Flags para saber que notificaciones crear,
+                    if (porcentaje_lluvia > 80) {
+                        makeNotification(myContext.getResources().getString(R.string.riesgoAltaProb), municipio, R.drawable.rain_risk);
+                        Log.d("NOTIFICATE", "alta prob llover");
+                    }
+                    if (min_temp < 3) {
+                        makeNotification(myContext.getResources().getString(R.string.riesgoHelada), municipio, R.drawable.freeze_risk);
+                        Log.d("NOTIFICATE", "riesgo helada");
+                    }
+                    if (max_temp > 24 && porcentaje_lluvia < 40) {
+                        makeNotification(myContext.getResources().getString(R.string.riesgoCalido), municipio, R.drawable.dry_risk);
+                        Log.d("NOTIFICATE", "riesgo calido");
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
         return result;
     }
 
-    public void makeNotification(String content, String title) {
+    public void makeNotification(String content, String title, int icon) {
         notificationManager = (NotificationManager) myContext.getSystemService(myContext.NOTIFICATION_SERVICE);
         Intent weather_intent = new Intent(myContext, WeatherFragment.class);
         weather_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         pendingIntent = PendingIntent.getActivity(myContext, 100, weather_intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(myContext)
                 .setContentIntent(pendingIntent)
-                .setSmallIcon(R.drawable.weather_icon)
+                .setSmallIcon(icon)
                 .setContentTitle(title)
                 .setContentText(content)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
                 .setAutoCancel(true);
 
         //De esta manera se mostrarán de forma individual y no se sobreescriben
