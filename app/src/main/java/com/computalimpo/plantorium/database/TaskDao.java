@@ -14,14 +14,20 @@ import java.util.List;
 @Dao
 public interface TaskDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addTask(TaskPOJO taskPOJO);
+
     @Query("SELECT * FROM task_table")
     List<TaskPOJO> getTask();
     @Query("SELECT * FROM task_table WHERE task_date = :date")
     List<TaskPOJO> getTasksWithDate(String date);
+
+    @Query("SELECT * FROM task_table WHERE task_category = :c")
+    List<TaskPOJO> getTasksCategory(String c);
+
     @Query("DELETE FROM task_table")
     void deleteAllTask();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void addTask(TaskPOJO taskPOJO);
 
     @Delete
     void deleteTask(TaskPOJO taskPOJO);

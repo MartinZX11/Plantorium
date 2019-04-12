@@ -6,6 +6,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(tableName = "category_table")
 
@@ -106,5 +108,19 @@ public class CategoryPOJO implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+
+    public List<String> getTastkTypes(){
+        List<String> res = new ArrayList<String>();
+        if(water) res.add("WATER");
+        if(prune) res.add("PRUNE");
+        if(ill) res.add("ILL");
+        return res;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

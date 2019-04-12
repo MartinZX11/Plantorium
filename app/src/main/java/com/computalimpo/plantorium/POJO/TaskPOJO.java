@@ -71,4 +71,9 @@ public class TaskPOJO {
         this.taskText = taskText;
     }
 
+    public String getInfo() {
+        String res = "Category :" + category + " must " + type + " on " + date;
+        return res;
+    }
+
 }

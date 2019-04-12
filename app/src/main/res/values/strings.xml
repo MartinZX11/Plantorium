@@ -75,4 +75,6 @@
     <string name="PRUNE">PRUNE</string>
     <string name="ILL">ILL</string>
 
+    <string name="infoTextTask">Additional info</string>
+
 </resources>
