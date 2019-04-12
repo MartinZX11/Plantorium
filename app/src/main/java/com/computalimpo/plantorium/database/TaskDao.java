@@ -27,6 +27,9 @@ public interface TaskDao {
     @Query("DELETE FROM task_table")
     void deleteAllTask();
 
+    @Query("DELETE FROM task_table WHERE task_category = :c")
+    void deleteAssociatedTask(int c);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addTask(TaskPOJO taskPOJO);
 

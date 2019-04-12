@@ -17,6 +17,7 @@ import com.computalimpo.plantorium.AddCropActivity;
 import com.computalimpo.plantorium.AddTaskActivity;
 import com.computalimpo.plantorium.CropDetail;
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
+import com.computalimpo.plantorium.POJO.CropPOJO;
 import com.computalimpo.plantorium.R;
 import com.computalimpo.plantorium.adapters.CategoryAdapter;
 import com.computalimpo.plantorium.database.CategoryDao;
@@ -84,6 +85,7 @@ public class CropsFragment extends Fragment {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
+                                CropsDatabase.getInstance(getContext()).taskDao().deleteAssociatedTask(cp.getId());
                                 CropsDatabase.getInstance(getContext()).categoryDao().deleteCategory(cp);
                             }
                         }).start();

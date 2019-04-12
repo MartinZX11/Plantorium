@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.computalimpo.plantorium.POJO.CategoryPOJO;
 import com.computalimpo.plantorium.POJO.TaskPOJO;
 import com.computalimpo.plantorium.R;
 import com.google.android.gms.tasks.Task;
@@ -67,6 +68,12 @@ public class TaskAdapter extends ArrayAdapter<TaskPOJO> {
     public long getItemId(int position) {
         return position;
     }
+
+    public void removeItem(final TaskPOJO item) {
+        taskList.remove(item);
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

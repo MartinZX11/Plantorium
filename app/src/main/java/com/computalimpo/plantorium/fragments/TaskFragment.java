@@ -1,5 +1,7 @@
 package com.computalimpo.plantorium.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -7,12 +9,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.computalimpo.plantorium.AddTaskActivity;
+import com.computalimpo.plantorium.POJO.CategoryPOJO;
 import com.computalimpo.plantorium.POJO.TaskPOJO;
 import com.computalimpo.plantorium.R;
 import com.computalimpo.plantorium.adapters.TaskAdapter;
+import com.computalimpo.plantorium.database.CropsDatabase;
 import com.computalimpo.plantorium.helper.TaskType;
 import com.computalimpo.plantorium.myAsyncTasks.TaskAsyncTask;
 
@@ -44,7 +49,7 @@ public class TaskFragment extends Fragment {
         taskAdapter = new TaskAdapter(getContext(), R.layout.task_row_item, new ArrayList<TaskPOJO>());
 
         taskAsyncTask.execute(true);
-        ListView taskList = cropView.findViewById(R.id.taskList);
+        final ListView taskList = cropView.findViewById(R.id.taskList);
         taskList.setAdapter(taskAdapter);
         //getMockTask();
         FloatingActionButton addTask = cropView.findViewById(R.id.addTaskFloatingButton);
@@ -53,6 +58,36 @@ public class TaskFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddTaskActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        taskList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage(R.string.categoryDeleteConfirmation);
+                final TaskPOJO cp = taskAdapter.getItem(position);
+
+                builder.setPositiveButton(R.string.categoryDeleteAccept, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        taskAdapter.removeItem(cp);
+                        taskAdapter.notifyDataSetChanged();
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                CropsDatabase.getInstance(getContext()).taskDao().deleteTask(cp);
+                            }
+                        }).start();
+                    }
+                });
+
+                builder.setNegativeButton(R.string.categoryDeleteDenied, null);
+                builder.create().show();
+                return true;
             }
         });
         return cropView;
