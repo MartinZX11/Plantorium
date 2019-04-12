@@ -92,7 +92,7 @@ public class TaskAdapter extends ArrayAdapter<TaskPOJO> {
         }
         switch (rowType) {
             case TYPE_ITEM:
-                holder.textView.setText(taskList.get(position).getTaskText());
+                holder.textView.setText(taskList.get(position).getTextForFragment());
                 break;
             case TYPE_SEPARATOR:
                 holder.textView.setText(taskList.get(position).getDate());
