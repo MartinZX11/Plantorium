@@ -16,12 +16,12 @@ import java.util.List;
 public interface TaskDao {
 
 
-    @Query("SELECT * FROM task_table")
+    @Query("SELECT * FROM task_table Order By task_date")
     List<TaskPOJO> getTask();
     @Query("SELECT * FROM task_table WHERE task_date = :date")
     List<TaskPOJO> getTasksWithDate(String date);
 
-    @Query("SELECT * FROM task_table WHERE task_category = :c")
+    @Query("SELECT * FROM task_table WHERE task_category = :c Order By task_date")
     List<TaskPOJO> getTasksCategory(int c);
 
     @Query("DELETE FROM task_table")

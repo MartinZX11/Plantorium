@@ -25,6 +25,16 @@ public class TaskFragment extends Fragment {
 
     public TaskFragment() {}
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        TaskAsyncTask taskAsyncTask = new TaskAsyncTask(this);
+        taskAsyncTask.execute(true);
+        taskAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View cropView = inflater.inflate(R.layout.fragment_task, null);
@@ -33,7 +43,7 @@ public class TaskFragment extends Fragment {
 
         taskAdapter = new TaskAdapter(getContext(), R.layout.task_row_item, new ArrayList<TaskPOJO>());
 
-
+        taskAsyncTask.execute(true);
         ListView taskList = cropView.findViewById(R.id.taskList);
         taskList.setAdapter(taskAdapter);
         //getMockTask();
@@ -48,32 +58,30 @@ public class TaskFragment extends Fragment {
         return cropView;
     }
 
-    public void getMockTask(){
-        ArrayList<TaskPOJO> taskList = new ArrayList<>();
-        for(int i = 0; i < 20 ; i ++){
-            taskList.add(new TaskPOJO(i,i / 5 + "/10/2019" , "WATER","AGUA"));
-        }
-        String aux;
-        aux = taskList.get(0).getDate();
-        taskAdapter.addSectionHeaderItem(taskList.get(0));
-        for(TaskPOJO task : taskList){
-            if(task.getDate().equals(aux)){
-                taskAdapter.addItem(task);
-            }else{
-                taskAdapter.addSectionHeaderItem(task);
-                taskAdapter.addItem(task);
-                aux = task.getDate();
+    public void setTaskAdapter(List<TaskPOJO> taskList){
+        taskAdapter.clear();
+        if(!taskList.isEmpty()) {
+            String aux;
+
+
+
+            aux = taskList.get(0).getDate();
+            taskAdapter.addSectionHeaderItem(taskList.get(0));
+            for (TaskPOJO task : taskList) {
+                if (task.getDate().equals(aux)) {
+                    taskAdapter.addItem(task);
+                } else {
+                    taskAdapter.addSectionHeaderItem(task);
+                    taskAdapter.addItem(task);
+                    aux = task.getDate();
+                }
             }
+            taskAdapter.notifyDataSetChanged();
         }
-        taskAdapter.notifyDataSetChanged();
         return;
     }
 
-    public void setTaskAdapter(List<TaskPOJO> list){
-        taskAdapter.addAll(list);
-        taskAdapter.notifyDataSetChanged();
 
-    }
 
 
 }

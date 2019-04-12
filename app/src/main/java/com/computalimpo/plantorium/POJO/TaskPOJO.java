@@ -58,7 +58,8 @@ public class TaskPOJO {
     public TaskPOJO(int category, String date, String type, String taskText) {
 
         this.category = category;
-        this.date = date;
+        String[] parts = date.split("/");
+        this.date = parts[2] + "/" + parts[1] + "/" + parts[0];
         this.type = type;
         this.taskText = taskText;
     }
@@ -77,8 +78,14 @@ public class TaskPOJO {
     }
 
     public String getInfoInCategory() {
-        String res = date + " : " + type;
+        String res = getNormalDate() + " : " + type;
         return res;
     }
+
+    public String getNormalDate(){
+        String[] parts = date.split("/");
+        return parts[2] + "/" + parts[1] + "/" + parts[0];
+    }
+
 
 }

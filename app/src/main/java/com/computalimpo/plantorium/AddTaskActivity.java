@@ -118,11 +118,11 @@ public class AddTaskActivity extends AppCompatActivity {
         final String temptasktype = spinner_type.getSelectedItem().toString();
 
 
-        if(c.getTastkTypes().contains(temptasktype)) {
+        if(c.getTastkTypes().contains(temptasktype) && !dateTextView.getText().toString().equals("Pick a date")) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    CropsDatabase.getInstance(getApplicationContext()).taskDao().addTask(new TaskPOJO(c.getId(),dateTextView.getText().toString(), spinner_type.getSelectedItem().toString() ,infoText.toString() ));
+                    CropsDatabase.getInstance(getApplicationContext()).taskDao().addTask(new TaskPOJO(c.getId(),dateTextView.getText().toString(), spinner_type.getSelectedItem().toString() ,infoText.getText().toString()));
 
                 }
             }).start();
@@ -130,7 +130,9 @@ public class AddTaskActivity extends AppCompatActivity {
         } else {
 
             Context context = getApplicationContext();
-            CharSequence text = "The task type selected is not valid for the chosen category";
+            CharSequence text = "";
+            if(dateTextView.getText().toString().equals("Pick a date")) text = "You have to pick a date \n";
+            if(!c.getTastkTypes().contains(temptasktype)) text = text + "The task type selected is not valid for the chosen category";
             int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, text, duration);

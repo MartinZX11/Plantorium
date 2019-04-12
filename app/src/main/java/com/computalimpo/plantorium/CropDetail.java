@@ -80,7 +80,7 @@ public class CropDetail extends AppCompatActivity {
                             String res = "";
                             for (TaskPOJO t:
                                  tasks) {
-                                res += t.getInfoInCategory() + "\n";
+                                res = res + t.getDate() + " : " + t.getType() + "\n";
 
                             }
                             taskOfCategory.setText(res);
