@@ -76,4 +76,9 @@ public class TaskPOJO {
         return res;
     }
 
+    public String getInfoInCategory() {
+        String res = date + " : " + type;
+        return res;
+    }
+
 }

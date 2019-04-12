@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
+import com.computalimpo.plantorium.POJO.TaskPOJO;
 import com.computalimpo.plantorium.database.CropsDatabase;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -33,6 +35,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class CropDetail extends AppCompatActivity {
 
@@ -41,7 +44,7 @@ public class CropDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_detail);
         Intent intent = getIntent();
-        CategoryPOJO object = (CategoryPOJO) intent.getSerializableExtra("object");
+        final CategoryPOJO object = (CategoryPOJO) intent.getSerializableExtra("object");
 
         TextView nameContent = findViewById(R.id.nameContent);
         TextView locationContent = findViewById(R.id.locationContent);
@@ -51,6 +54,7 @@ public class CropDetail extends AppCompatActivity {
         ImageView categoryImage = findViewById(R.id.categoryImage);
         ImageView qrImagen = findViewById(R.id.qrImagen);
         TextView numberContent = findViewById(R.id.numberContent);
+        final TextView taskOfCategory = findViewById(R.id.taskOfCategory);
 
         String str = object.getImage();
         byte data[]= android.util.Base64.decode(str, android.util.Base64.DEFAULT);
@@ -63,6 +67,31 @@ public class CropDetail extends AppCompatActivity {
         waterContent.setText(object.isWater() ? "Yes" : "No");
         pruneContent.setText(object.isPrune() ? "Yes" : "No");
         numberContent.setText(object.getNumber()+ "");
+
+        //Task asociadas
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<TaskPOJO> tasks =  CropsDatabase.getInstance(getApplicationContext()).taskDao().getTasksCategory(object.getId());
+                        if(tasks.isEmpty()){
+                            taskOfCategory.setText("No asociated tasks");
+                        } else {
+                            String res = "";
+                            for (TaskPOJO t:
+                                 tasks) {
+                                res += t.getInfoInCategory() + "\n";
+
+                            }
+                            taskOfCategory.setText(res);
+
+                        }
+
+
+
+
+                    }
+                }).start();
 
         QRCodeWriter writer = new QRCodeWriter();
         final Bitmap image;

@@ -7,6 +7,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 
+import com.computalimpo.plantorium.POJO.CategoryPOJO;
 import com.computalimpo.plantorium.POJO.TaskPOJO;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface TaskDao {
     List<TaskPOJO> getTasksWithDate(String date);
 
     @Query("SELECT * FROM task_table WHERE task_category = :c")
-    List<TaskPOJO> getTasksCategory(String c);
+    List<TaskPOJO> getTasksCategory(int c);
 
     @Query("DELETE FROM task_table")
     void deleteAllTask();

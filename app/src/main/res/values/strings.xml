@@ -76,5 +76,6 @@
     <string name="ILL">ILL</string>
 
     <string name="infoTextTask">Additional info</string>
+    <string name="asociatedTasks">Asociated Tasks</string>
 
 </resources>

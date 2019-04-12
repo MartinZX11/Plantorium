@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
+import com.computalimpo.plantorium.POJO.TaskPOJO;
 import com.computalimpo.plantorium.database.CropsDatabase;
 import com.computalimpo.plantorium.fragments.CropsFragment;
 

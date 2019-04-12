@@ -122,7 +122,7 @@ public class AddTaskActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    CropsDatabase.getInstance(getApplicationContext()).taskDao().addTask(new TaskPOJO(c.getId(), spinner_type.getSelectedItem().toString(), dateTextView.toString(),infoText.toString() ));
+                    CropsDatabase.getInstance(getApplicationContext()).taskDao().addTask(new TaskPOJO(c.getId(),dateTextView.getText().toString(), spinner_type.getSelectedItem().toString() ,infoText.toString() ));
 
                 }
             }).start();
