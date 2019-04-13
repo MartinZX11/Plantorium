@@ -88,7 +88,7 @@ public class TaskPOJO {
     }
 
     public String getTextForFragment(){
-        return type + " : " + taskText;
+        return taskText;
     }
 
 

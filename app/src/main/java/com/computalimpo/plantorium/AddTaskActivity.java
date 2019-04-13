@@ -116,13 +116,14 @@ public class AddTaskActivity extends AppCompatActivity {
 
         final CategoryPOJO c = (CategoryPOJO) spinner.getSelectedItem();
         final String temptasktype = spinner_type.getSelectedItem().toString();
+        final String info = c.getName() + " [" + spinner_type.getSelectedItem().toString() + "] " + infoText.getText().toString();
 
 
         if(c.getTastkTypes().contains(temptasktype) && !dateTextView.getText().toString().equals("Pick a date")) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    CropsDatabase.getInstance(getApplicationContext()).taskDao().addTask(new TaskPOJO(c.getId(),dateTextView.getText().toString(), spinner_type.getSelectedItem().toString() ,infoText.getText().toString()));
+                    CropsDatabase.getInstance(getApplicationContext()).taskDao().addTask(new TaskPOJO(c.getId(),dateTextView.getText().toString(), spinner_type.getSelectedItem().toString() ,info));
 
                 }
             }).start();
