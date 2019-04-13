@@ -64,29 +64,31 @@ public class TaskFragment extends Fragment {
         taskList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if(taskAdapter.getItemViewType(position) == 0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage(R.string.categoryDeleteConfirmation);
+                    final TaskPOJO cp = taskAdapter.getItem(position);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage(R.string.categoryDeleteConfirmation);
-                final TaskPOJO cp = taskAdapter.getItem(position);
+                    builder.setPositiveButton(R.string.categoryDeleteAccept, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                builder.setPositiveButton(R.string.categoryDeleteAccept, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                            taskAdapter.removeItem(cp);
+                            taskAdapter.notifyDataSetChanged();
 
-                        taskAdapter.removeItem(cp);
-                        taskAdapter.notifyDataSetChanged();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    CropsDatabase.getInstance(getContext()).taskDao().deleteTask(cp);
+                                }
+                            }).start();
+                        }
+                    });
 
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                CropsDatabase.getInstance(getContext()).taskDao().deleteTask(cp);
-                            }
-                        }).start();
-                    }
-                });
-
-                builder.setNegativeButton(R.string.categoryDeleteDenied, null);
-                builder.create().show();
+                    builder.setNegativeButton(R.string.categoryDeleteDenied, null);
+                    builder.create().show();
+                    return true;
+                }
                 return true;
             }
         });
