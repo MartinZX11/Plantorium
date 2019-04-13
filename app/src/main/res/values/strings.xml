@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Plantorium</string>
     <string name="crops">Crops</string>
-    <string name="home">Home</string>
+    <string name="home" translatable="false">Home</string>
     <string name="map">Map</string>
     <string name="weather">Weather</string>
-    <string name="task">Task</string>
-    <string name="qr">QR</string>
+    <string name="task">Tasks</string>
+    <string name="qr" translatable="false">QR</string>
     <string name="add_task">Add task</string>
     <string name="cancel">Cancel</string>
     <string name="date_title">Date of task:</string>
@@ -14,31 +14,31 @@
     <string name="subcategory_default_message">Select category</string>
     <string name="crop_default_message">Select task type</string>
     <string name="date_default">Pick a date</string>
-    <string name="formato_fecha">dd/mm/yyyy</string>
-    <string name="formato_hora">hh:mm</string>
+    <string name="formato_fecha" translatable="false">dd/mm/yyyy</string>
+    <string name="formato_hora" translatable="false">hh:mm</string>
     <string name="todayButton">Today</string>
     <string name="tomorrowButton">Tomorrow</string>
-    <string name="title_max_moisture">Max</string>
-    <string name="title_min_moisture">Min</string>
+    <string name="title_max_moisture" translatable="false">Max</string>
+    <string name="title_min_moisture" translatable="false">Min</string>
     <string name="header_time">Time Slot</string>
     <string name="header_dir">Direction</string>
     <string name="header_speed">Speed (km/h)</string>
-    <string name="slot1">00-06</string>
-    <string name="slot2">06-12</string>
-    <string name="slot3">12-18</string>
-    <string name="slot4">18-24</string>
+    <string name="slot1" translatable="false">00-06</string>
+    <string name="slot2" translatable="false">06-12</string>
+    <string name="slot3" translatable="false">12-18</string>
+    <string name="slot4" translatable="false">18-24</string>
     <string name="title_prob_rain">Prob. of rain</string>
-    <string name="title_moisture">Porcentaje de humedad</string>
+    <string name="title_moisture">Percentage of humidity</string>
     <string name="today_tab">TODAY</string>
     <string name="tomorrow_tab">TOMORROW</string>
-    <string name="scan">SCAN QR</string>
+    <string name="scan" translatable="false">SCAN QR</string>
     <string name="scan_des">Scan a QR code using your phone camera</string>
     <string name="scanError">This QR code does not appear in your database</string>
     <string name="qrButton">Save QR image</string>
     <string name="qrTitle">QR image successfully saved</string>
 
-    <string name="date_format">dd/mm/yyyy</string>
-    <string name="hour_format">hh:mm</string>
+    <string name="date_format" translatable="false">dd/mm/yyyy</string>
+    <string name="hour_format" translatable="false">hh:mm</string>
 
     <string name="cropName">Type of crop:</string>
     <string name="cropLocation">Location of the crop:</string>
@@ -46,7 +46,7 @@
     <string name="cropRequirements">This category requires:</string>
     <string name="checkBoxWater">Water</string>
     <string name="checkBoxPrune">Prune</string>
-    <string name="checkBoxIll">Ill</string>
+    <string name="checkBoxIll">Fumigate</string>
     <string name = "cropNumber">Number of trees in this crop:</string>
     <string name = "addCropPhoto">Select or Capture Image:</string>
 
@@ -73,9 +73,12 @@
 
     <string name="WATER">WATER</string>
     <string name="PRUNE">PRUNE</string>
-    <string name="ILL">ILL</string>
+    <string name="ILL">FUMIGATE</string>
 
     <string name="infoTextTask">Additional info</string>
     <string name="asociatedTasks">Asociated Tasks</string>
+
+    <string name="pickDate">You have to pick a date</string>
+    <string name="typeNotValid">The task type selected is not valid for the chosen category</string>
 
 </resources>

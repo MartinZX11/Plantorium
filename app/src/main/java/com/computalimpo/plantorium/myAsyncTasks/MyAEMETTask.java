@@ -146,7 +146,7 @@ public class MyAEMETTask extends AsyncTask<String, Void, JSONArray> {
                         makeNotification(myContext.getResources().getString(R.string.riesgoHelada), municipio, R.drawable.freeze_risk);
                         Log.d("NOTIFICATE", "riesgo helada");
                     }
-                    if (max_temp > 24 && porcentaje_lluvia < 40) {
+                    if (max_temp > 28 && porcentaje_lluvia < 30) {
                         makeNotification(myContext.getResources().getString(R.string.riesgoCalido), municipio, R.drawable.dry_risk);
                         Log.d("NOTIFICATE", "riesgo calido");
                     }

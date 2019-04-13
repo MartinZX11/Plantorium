@@ -15,7 +15,7 @@ public class TaskAsyncTask extends AsyncTask<Boolean,Void, List<TaskPOJO>> {
 
     public TaskAsyncTask(TaskFragment taskFragmentWeakReference) {
         this.taskFragmentWeakReference = new WeakReference<>(taskFragmentWeakReference);
-        cropsDatabase = CropsDatabase.getInstance(taskFragmentWeakReference.getContext());
+        cropsDatabase = CropsDatabase.getInstance(this.taskFragmentWeakReference.get().getContext());
 
     }
 
