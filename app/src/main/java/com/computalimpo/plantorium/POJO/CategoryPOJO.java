@@ -205,7 +205,10 @@ public class CategoryPOJO implements Serializable {
 
         if(!res.isEmpty()) {
             res = res.substring(2);
-            res = res + ".";
+            String firstLetter =  res.substring(0,1);
+            res = res.substring(1);
+            res = res.toLowerCase();
+            res = firstLetter + res + ".";
         }
         return res;
     }
