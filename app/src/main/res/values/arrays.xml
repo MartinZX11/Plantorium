@@ -3,7 +3,10 @@
     <string-array name="tasktype">
         <item>@string/WATER</item>
         <item>@string/PRUNE</item>
+        <item>@string/EXCESS</item>
         <item>@string/ILL</item>
         <item>@string/HARVEST</item>
+        <item>@string/LACK</item>
+        <item>@string/HERBICIDE</item>
     </string-array>
 </resources>

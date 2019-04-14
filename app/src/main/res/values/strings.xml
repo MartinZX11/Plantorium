@@ -80,6 +80,9 @@
     <string name="HARVEST">HARVEST</string>
     <string name="ILL">FUMIGATE</string>
     <string name="PRUNE">PRUNE</string>
+    <string name="EXCESS">EXCESS</string>
+    <string name="LACK">LACK</string>
+    <string name="HERBICIDE">HERBICIDE</string>
 
     <string name="infoTextTask">Additional info</string>
     <string name="asociatedTasks">Asociated Tasks</string>
@@ -89,5 +92,14 @@
 
     <string name="noTasks">No asociated tasks</string>
     <string name="yes">Yes</string>
+
+    <string name="requiresTitle">Requires:</string>
+
+    <string name="checkExcess">Excess of fruit</string>
+    <string name="checkLack">Lack</string>
+    <string name="checkHerbicide">Herbicide</string>
+    <string name="Excess">EXCESS</string>
+    <string name="Lack">LACK</string>
+    <string name="Herbicide">HERBICIDE</string>
 
 </resources>

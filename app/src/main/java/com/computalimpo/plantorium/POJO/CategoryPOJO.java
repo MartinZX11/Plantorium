@@ -33,11 +33,20 @@ public class CategoryPOJO implements Serializable {
     @ColumnInfo(name="category_prune")
     private boolean prune;
 
+    @ColumnInfo(name="category_excess")
+    private boolean excess;
+
     @ColumnInfo(name="category_ill")
     private boolean ill;
 
     @ColumnInfo(name="category_harvest")
     private boolean harvest;
+
+    @ColumnInfo(name="category_lack")
+    private boolean lack;
+
+    @ColumnInfo(name="category_herbicide")
+    private boolean herbicide;
 
     @ColumnInfo(name="category_number")
     private int number;
@@ -55,13 +64,40 @@ public class CategoryPOJO implements Serializable {
 
     }
 
-    public CategoryPOJO(String name, String location, boolean water, boolean prune, boolean ill, boolean harvest, int number, String image, Double latitude, Double longitude) {
+    public boolean isExcess() {
+        return excess;
+    }
+
+    public void setExcess(boolean excess) {
+        this.excess = excess;
+    }
+
+    public boolean isLack() {
+        return lack;
+    }
+
+    public void setLack(boolean lack) {
+        this.lack = lack;
+    }
+
+    public boolean isHerbicide() {
+        return herbicide;
+    }
+
+    public void setHerbicide(boolean herbicide) {
+        this.herbicide = herbicide;
+    }
+
+    public CategoryPOJO(String name, String location, boolean water, boolean prune, boolean excess, boolean ill, boolean harvest, boolean lack, boolean herbicide, int number, String image, Double latitude, Double longitude) {
         this.name = name;
         this.location = location;
         this.water = water;
         this.prune = prune;
+        this.excess = excess;
         this.ill = ill;
         this.harvest = harvest;
+        this.lack = lack;
+        this.herbicide = herbicide;
         this.number = number;
         this.image = image;
         this.latitude = latitude;
@@ -149,8 +185,28 @@ public class CategoryPOJO implements Serializable {
         List<String> res = new ArrayList<String>();
         if(water) res.add(context.getString(R.string.WATER));
         if(prune) res.add(context.getString(R.string.PRUNE));
+        if(excess) res.add(context.getString(R.string.EXCESS));
         if(ill) res.add(context.getString(R.string.ILL));
         if(harvest) res.add(context.getString(R.string.HARVEST));
+        if(lack) res.add(context.getString(R.string.LACK));
+        if(herbicide) res.add(context.getString(R.string.HERBICIDE));
+        return res;
+    }
+
+    public String getRequirements(Context context){
+        String res = "";
+        if(water) res += ", " + context.getString(R.string.WATER);
+        if(prune) res += ", " + context.getString(R.string.PRUNE);
+        if(excess) res += ", " + context.getString(R.string.EXCESS);
+        if(ill) res += ", " + context.getString(R.string.ILL);
+        if(harvest) res += ", " + context.getString(R.string.HARVEST);
+        if(lack) res += ", " + context.getString(R.string.LACK);
+        if(herbicide) res += ", " + context.getString(R.string.HERBICIDE);
+
+        if(!res.isEmpty()) {
+            res = res.substring(2);
+            res = res + ".";
+        }
         return res;
     }
 

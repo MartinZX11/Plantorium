@@ -68,4 +68,14 @@
     <string name="harvestTitle">Requiere cosecha:</string>
     <string name="noTasks">No hay tareas asociadas</string>
     <string name="yes">Sí</string>
+    <string name="EXCESS">EXCESO</string>
+    <string name="LACK">CARENCIA</string>
+    <string name="HERBICIDE">HERBICIDA</string>
+    <string name="requiresTitle">Requiere:</string>
+    <string name="Excess">EXCESS</string>
+    <string name="Lack">CARENCIA</string>
+    <string name="Herbicide">HERBICIDA</string>
+    <string name="checkExcess">Exceso de fruta</string>
+    <string name="checkLack">Carencias</string>
+    <string name="checkHerbicide">Herbicida</string>
 </resources>

@@ -43,14 +43,16 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <LinearLayout
                 android:id="@+id/linearLayout6"
@@ -153,6 +155,7 @@
                     android:id="@+id/checkWater"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:text="@string/checkBoxWater"
                     app:layout_constraintBottom_toTopOf="@+id/checkPrune"
                     app:layout_constraintStart_toStartOf="parent"
@@ -178,9 +181,28 @@
 
                 <CheckBox
                     android:id="@+id/checkHarvest"
+                    android:layout_width="103dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/checkBoxHarvest" />
+
+                <CheckBox
+                    android:id="@+id/checkExcess"
+                    android:layout_width="205dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkExcess" />
+
+                <CheckBox
+                    android:id="@+id/checkLack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/checkBoxHarvest" />
+                    android:text="@string/checkLack" />
+
+                <CheckBox
+                    android:id="@+id/checkHerbicide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkHerbicide" />
             </LinearLayout>
 
             <LinearLayout
@@ -223,13 +245,13 @@
                     android:textColor="@color/white" />
 
                 <ImageView
+                    android:id="@+id/imageCaptured"
                     android:layout_width="300dp"
                     android:layout_height="300dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher"
-                    android:id="@+id/imageCaptured"/>
+                    android:src="@mipmap/ic_launcher" />
 
             </LinearLayout>
 

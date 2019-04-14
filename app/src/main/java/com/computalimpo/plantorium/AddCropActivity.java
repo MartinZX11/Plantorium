@@ -40,6 +40,9 @@ public class AddCropActivity extends AppCompatActivity {
     private CheckBox ill;
     private CheckBox prune;
     private CheckBox harvest;
+    private CheckBox excess;
+    private CheckBox lack;
+    private CheckBox herbicide;
     private EditText categoryNumber;
     private Button captureImage;
     private ImageView imageView;
@@ -55,6 +58,10 @@ public class AddCropActivity extends AppCompatActivity {
         ill = findViewById(R.id.checkIll);
         prune = findViewById(R.id.checkPrune);
         harvest = findViewById(R.id.checkHarvest);
+        excess = findViewById(R.id.checkExcess);
+        lack = findViewById(R.id.checkLack);
+        herbicide = findViewById(R.id.checkHerbicide);
+
         categoryLocation = findViewById(R.id.categoryLocation);
         categoryNumber = findViewById(R.id.categoryNumber);
         captureImage = findViewById(R.id.captureButton);
@@ -144,7 +151,7 @@ public class AddCropActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                CropsDatabase.getInstance(getApplicationContext()).categoryDao().addCategory(new CategoryPOJO(categoryName.getText().toString(), categoryLocation.getText().toString(),water.isChecked(), prune.isChecked(),ill.isChecked(), harvest.isChecked(), Integer.parseInt(categoryNumber.getText().toString()), getStringImage(newBitmap), point.latitude, point.longitude));
+                CropsDatabase.getInstance(getApplicationContext()).categoryDao().addCategory(new CategoryPOJO(categoryName.getText().toString(), categoryLocation.getText().toString(),water.isChecked(), prune.isChecked(),excess.isChecked(),ill.isChecked(), harvest.isChecked(),lack.isChecked(),herbicide.isChecked(), Integer.parseInt(categoryNumber.getText().toString()), getStringImage(newBitmap), point.latitude, point.longitude));
 
             }
         }).start();

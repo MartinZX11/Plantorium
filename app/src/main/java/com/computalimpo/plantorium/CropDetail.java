@@ -48,10 +48,9 @@ public class CropDetail extends AppCompatActivity {
 
         TextView nameContent = findViewById(R.id.nameContent);
         TextView locationContent = findViewById(R.id.locationContent);
-        TextView illContent = findViewById(R.id.illContent);
-        TextView waterContent = findViewById(R.id.waterContent);
-        TextView pruneContent = findViewById(R.id.pruneContent);
-        TextView harvestContent = findViewById(R.id.harvestContent);
+
+        TextView requiresContent = findViewById(R.id.requiresContent);
+
         ImageView categoryImage = findViewById(R.id.categoryImage);
         ImageView qrImagen = findViewById(R.id.qrImagen);
         TextView numberContent = findViewById(R.id.numberContent);
@@ -64,11 +63,9 @@ public class CropDetail extends AppCompatActivity {
         categoryImage.setImageBitmap(categoryBitmap);
         nameContent.setText(object.getName());
         locationContent.setText(object.getLocation());
-        String si = getResources().getString(R.string.yes);
-        illContent.setText(object.isIll() ? si : "No");
-        waterContent.setText(object.isWater() ? si : "No");
-        pruneContent.setText(object.isPrune() ? si : "No");
-        harvestContent.setText(object.isHarvest() ? si : "No");
+
+        requiresContent.setText(object.getRequirements(getApplicationContext()));
+
         numberContent.setText(object.getNumber()+ "");
 
         //Task asociadas
