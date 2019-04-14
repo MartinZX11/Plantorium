@@ -36,6 +36,7 @@
     <string name="scanError">This QR code does not appear in your database</string>
     <string name="qrButton">Save QR image</string>
     <string name="qrTitle">QR image successfully saved</string>
+    <string name="mapError">No locations are available</string>
 
     <string name="date_format" translatable="false">dd/mm/yyyy</string>
     <string name="hour_format" translatable="false">hh:mm</string>
@@ -49,27 +50,28 @@
     <string name="checkBoxIll">Fumigate</string>
     <string name = "cropNumber">Number of trees in this crop:</string>
     <string name = "addCropPhoto">Select or Capture Image:</string>
+    <string name = "addCropCoordinates">Select exact location on a map</string>
 
     <string name="categoryDeleteConfirmation">Are you sure that you want to delete this crop?</string>
     <string name="categoryDeleteAccept">Accept</string>
     <string name="categoryDeleteDenied">Cancel</string>
-    <string name = "nameTitle">Type of crop:</string>
-    <string name = "pruneTitle">Requires prune:</string>
-    <string name = "waterTitle">Requires water:</string>
-    <string name = "illTitle">Requires treatment:</string>
-    <string name = "cropsTitle">Number of tree in the crop:</string>
-    <string name = "locationTitle">Location of the crop:</string>
-    <string name = "numberTitle">Number of trees:</string>
+    <string name="nameTitle">Type of crop:</string>
+    <string name="pruneTitle">Requires prune:</string>
+    <string name="waterTitle">Requires water:</string>
+    <string name="illTitle">Requires treatment:</string>
+    <string name="cropsTitle">Number of tree in the crop:</string>
+    <string name="locationTitle">Location of the crop:</string>
+    <string name="numberTitle">Number of trees:</string>
 
-    <string name = "riesgoRacha">Tomorrow winds of 50 km/h will be overcome</string>
-    <string name = "riesgoAltaProb">Tomorrow there is a high probability of rain</string>
-    <string name = "riesgoHelada">Tomorrow there is a risk of frost, the minimum temperature is less than 3º</string>
-    <string name = "riesgoCalido">Tomorrow there is a risk of very hot and dry weather</string>
+    <string name="riesgoRacha">Tomorrow winds of 50 km/h will be overcome</string>
+    <string name="riesgoAltaProb">Tomorrow there is a high probability of rain</string>
+    <string name="riesgoHelada">Tomorrow there is a risk of frost, the minimum temperature is less than 3º</string>
+    <string name="riesgoCalido">Tomorrow there is a risk of very hot and dry weather</string>
 
-    <string name = "titleDialogNoMunicipios">You don\'t have any crop</string>
-    <string name = "dialogNoMunicipios">No locations are available on which to report the weather</string>
-    <string name = "titleDialogNoFound">There was a problem</string>
-    <string name = "dialogNoFound">The location could not be found</string>
+    <string name="titleDialogNoMunicipios">You don\'t have any crop</string>
+    <string name="dialogNoMunicipios">No locations are available on which to report the weather</string>
+    <string name="titleDialogNoFound">There was a problem</string>
+    <string name="dialogNoFound">The location could not be found</string>
 
     <string name="WATER">WATER</string>
     <string name="PRUNE">PRUNE</string>

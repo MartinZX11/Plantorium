@@ -4,6 +4,9 @@ package com.computalimpo.plantorium.POJO;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.graphics.Point;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,11 +39,17 @@ public class CategoryPOJO implements Serializable {
     @ColumnInfo(name="category_image")
     private String image;
 
+    @ColumnInfo(name="category_latitude")
+    private Double latitude;
+
+    @ColumnInfo(name="category_longitude")
+    private Double longitude;
+
     public CategoryPOJO(){
 
     }
 
-    public CategoryPOJO(String name, String location, boolean water, boolean prune, boolean ill, int number, String image) {
+    public CategoryPOJO(String name, String location, boolean water, boolean prune, boolean ill, int number, String image, Double latitude, Double longitude) {
         this.name = name;
         this.location = location;
         this.water = water;
@@ -48,6 +57,8 @@ public class CategoryPOJO implements Serializable {
         this.ill = ill;
         this.number = number;
         this.image = image;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -109,6 +120,14 @@ public class CategoryPOJO implements Serializable {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public  Double getLatitude() { return  latitude; }
+
+    public  void setLatitude(Double latitude) { this.latitude = latitude; }
+
+    public  Double getLongitude() { return  longitude; }
+
+    public  void setLongitude(Double longitude) { this.longitude = longitude; }
 
 
     public List<String> getTastkTypes(){

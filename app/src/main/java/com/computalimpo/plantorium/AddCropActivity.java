@@ -4,32 +4,26 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
-import com.computalimpo.plantorium.POJO.TaskPOJO;
 import com.computalimpo.plantorium.database.CropsDatabase;
-import com.computalimpo.plantorium.fragments.CropsFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Calendar;
 
 public class AddCropActivity extends AppCompatActivity {
 
@@ -41,6 +35,8 @@ public class AddCropActivity extends AppCompatActivity {
     private EditText categoryNumber;
     private Button captureImage;
     private ImageView imageView;
+    private TextView coordinates;
+    private LatLng point = new LatLng(0.0,0.0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +57,8 @@ public class AddCropActivity extends AppCompatActivity {
             }
         });
         imageView.setImageDrawable(getResources().getDrawable(R.drawable.oak_tree_icon));
+        coordinates = findViewById(R.id.textViewCoord);
+        coordinates.setText("Coordinates by defect: " + point.toString());
     }
 
     private void showPictureDialog(){
@@ -121,6 +119,10 @@ public class AddCropActivity extends AppCompatActivity {
         } else if (requestCode == 1) {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(thumbnail);
+        } else if (requestCode == 2) {
+            point = (LatLng) data.getExtras().get("coord");
+            coordinates = findViewById(R.id.textViewCoord);
+            coordinates.setText("Coordinates selected: "+ data.getExtras().get("coord").toString());
         }
     }
 
@@ -133,11 +135,16 @@ public class AddCropActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                CropsDatabase.getInstance(getApplicationContext()).categoryDao().addCategory(new CategoryPOJO(categoryName.getText().toString(), categoryLocation.getText().toString(),water.isChecked(), prune.isChecked(),ill.isChecked(), Integer.parseInt(categoryNumber.getText().toString()), getStringImage(newBitmap)));
+                CropsDatabase.getInstance(getApplicationContext()).categoryDao().addCategory(new CategoryPOJO(categoryName.getText().toString(), categoryLocation.getText().toString(),water.isChecked(), prune.isChecked(),ill.isChecked(), Integer.parseInt(categoryNumber.getText().toString()), getStringImage(newBitmap), point.latitude, point.longitude));
 
             }
         }).start();
         finish();
+    }
+
+    public void addCoordenates(View view){
+        Intent intento = new Intent(this, MapActivity.class );
+        startActivityForResult(intento, 2);
     }
 
     public String getStringImage(Bitmap bmp){

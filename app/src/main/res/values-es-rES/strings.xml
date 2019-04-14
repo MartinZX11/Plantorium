@@ -60,4 +60,6 @@
     <string name="asociatedTasks">Tareas Asociadas</string>
     <string name="pickDate">Tienes que fijar una fecha</string>
     <string name="typeNotValid">El tipo de tarea seleccionado no es valido para la categoría elegida</string>
+    <string name="addCropCoordinates">Selecionar posición exacta sobre mapa</string>
+    <string name="mapError">No hay localizaciones disponibles</string>
 </resources>

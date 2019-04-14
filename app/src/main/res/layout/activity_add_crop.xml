@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="number"
-                    android:text="0"
+                    android:text="1"
                     tools:layout_editor_absoluteX="53dp"
                     tools:layout_editor_absoluteY="312dp" />
 
@@ -177,11 +177,33 @@
                     app:layout_constraintTop_toBottomOf="@+id/checkPrune" />
             </LinearLayout>
 
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/button_effect_dark"
+                    android:onClick="addCoordenates"
+
+                    android:text="@string/addCropCoordinates"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/textViewCoord"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="53dp"
+                    tools:layout_editor_absoluteY="312dp" />
 
                 <Button
                     android:id="@+id/captureButton"
@@ -202,6 +224,7 @@
                     android:scaleType="fitXY"
                     android:src="@mipmap/ic_launcher"
                     android:id="@+id/imageCaptured"/>
+
             </LinearLayout>
 
         </LinearLayout>
