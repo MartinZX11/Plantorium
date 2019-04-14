@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -126,9 +127,8 @@ public class AddTaskActivity extends AppCompatActivity {
         final CategoryPOJO c = (CategoryPOJO) spinner.getSelectedItem();
         final String temptasktype = spinner_type.getSelectedItem().toString();
         final String info = c.getName() + " [" + spinner_type.getSelectedItem().toString() + "] " + infoText.getText().toString();
-
-
-        if(c.getTastkTypes().contains(temptasktype) && !dateTextView.getText().toString().equals("Pick a date")) {
+        String dateDefault = getResources().getString(R.string.date_default);
+        if(c.getTastkTypes(getApplicationContext()).contains(temptasktype) && !dateTextView.getText().toString().equals(dateDefault)) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -138,11 +138,16 @@ public class AddTaskActivity extends AppCompatActivity {
             }).start();
             finish();
         } else {
-
             Context context = getApplicationContext();
             CharSequence text = "";
-            if(dateTextView.getText().toString().equals("Pick a date")) text = getResources().getString(R.string.pickDate);
-            if(!c.getTastkTypes().contains(temptasktype)) text = text + getResources().getString(R.string.typeNotValid);
+            if(dateTextView.getText().toString().equals(dateDefault)) text = getResources().getString(R.string.pickDate);
+            if(!c.getTastkTypes(context).contains(temptasktype)) {
+                if (!text.equals("")) {
+                    text = text + "\n" + getResources().getString(R.string.typeNotValid);
+                } else {
+                    text = getResources().getString(R.string.typeNotValid);
+                }
+            }
             int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, text, duration);

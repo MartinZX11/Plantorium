@@ -4,5 +4,6 @@
         <item>@string/WATER</item>
         <item>@string/PRUNE</item>
         <item>@string/ILL</item>
+        <item>@string/HARVEST</item>
     </string-array>
 </resources>

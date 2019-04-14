@@ -4,12 +4,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,11 +22,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.computalimpo.plantorium.POJO.CategoryPOJO;
+import com.computalimpo.plantorium.POJO.TaskPOJO;
 import com.computalimpo.plantorium.database.CropsDatabase;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class AddCropActivity extends AppCompatActivity {
 
@@ -32,6 +39,7 @@ public class AddCropActivity extends AppCompatActivity {
     private CheckBox water;
     private CheckBox ill;
     private CheckBox prune;
+    private CheckBox harvest;
     private EditText categoryNumber;
     private Button captureImage;
     private ImageView imageView;
@@ -46,6 +54,7 @@ public class AddCropActivity extends AppCompatActivity {
         water = findViewById(R.id.checkWater);
         ill = findViewById(R.id.checkIll);
         prune = findViewById(R.id.checkPrune);
+        harvest = findViewById(R.id.checkHarvest);
         categoryLocation = findViewById(R.id.categoryLocation);
         categoryNumber = findViewById(R.id.categoryNumber);
         captureImage = findViewById(R.id.captureButton);
@@ -135,7 +144,7 @@ public class AddCropActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                CropsDatabase.getInstance(getApplicationContext()).categoryDao().addCategory(new CategoryPOJO(categoryName.getText().toString(), categoryLocation.getText().toString(),water.isChecked(), prune.isChecked(),ill.isChecked(), Integer.parseInt(categoryNumber.getText().toString()), getStringImage(newBitmap), point.latitude, point.longitude));
+                CropsDatabase.getInstance(getApplicationContext()).categoryDao().addCategory(new CategoryPOJO(categoryName.getText().toString(), categoryLocation.getText().toString(),water.isChecked(), prune.isChecked(),ill.isChecked(), harvest.isChecked(), Integer.parseInt(categoryNumber.getText().toString()), getStringImage(newBitmap), point.latitude, point.longitude));
 
             }
         }).start();

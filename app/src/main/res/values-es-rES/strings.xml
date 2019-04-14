@@ -56,10 +56,16 @@
     <string name="WATER">REGAR</string>
     <string name="PRUNE">PODAR</string>
     <string name="ILL">FUMIGAR</string>
+    <string name="HARVEST">RECOLECTAR</string>
     <string name="infoTextTask">Información adicional</string>
     <string name="asociatedTasks">Tareas Asociadas</string>
     <string name="pickDate">Tienes que fijar una fecha</string>
-    <string name="typeNotValid">El tipo de tarea seleccionado no es valido para la categoría elegida</string>
     <string name="addCropCoordinates">Selecionar posición exacta sobre mapa</string>
     <string name="mapError">No hay localizaciones disponibles</string>
+    <string name="typeNotValid">El tipo de tarea seleccionado no es válido para la categoría elegida</string>
+    <string name="taskDeleteConfirmation">¿Estás seguro de que quieres eliminar esta tarea?</string>
+    <string name="checkBoxHarvest">Recolectar</string>
+    <string name="harvestTitle">Requiere cosecha:</string>
+    <string name="noTasks">No hay tareas asociadas</string>
+    <string name="yes">Sí</string>
 </resources>

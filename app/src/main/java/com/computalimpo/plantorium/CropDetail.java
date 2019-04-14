@@ -51,6 +51,7 @@ public class CropDetail extends AppCompatActivity {
         TextView illContent = findViewById(R.id.illContent);
         TextView waterContent = findViewById(R.id.waterContent);
         TextView pruneContent = findViewById(R.id.pruneContent);
+        TextView harvestContent = findViewById(R.id.harvestContent);
         ImageView categoryImage = findViewById(R.id.categoryImage);
         ImageView qrImagen = findViewById(R.id.qrImagen);
         TextView numberContent = findViewById(R.id.numberContent);
@@ -63,9 +64,11 @@ public class CropDetail extends AppCompatActivity {
         categoryImage.setImageBitmap(categoryBitmap);
         nameContent.setText(object.getName());
         locationContent.setText(object.getLocation());
-        illContent.setText(object.isIll() ? "Yes" : "No");
-        waterContent.setText(object.isWater() ? "Yes" : "No");
-        pruneContent.setText(object.isPrune() ? "Yes" : "No");
+        String si = getResources().getString(R.string.yes);
+        illContent.setText(object.isIll() ? si : "No");
+        waterContent.setText(object.isWater() ? si : "No");
+        pruneContent.setText(object.isPrune() ? si : "No");
+        harvestContent.setText(object.isHarvest() ? si : "No");
         numberContent.setText(object.getNumber()+ "");
 
         //Task asociadas
@@ -75,7 +78,7 @@ public class CropDetail extends AppCompatActivity {
                     public void run() {
                         List<TaskPOJO> tasks =  CropsDatabase.getInstance(getApplicationContext()).taskDao().getTasksCategory(object.getId());
                         if(tasks.isEmpty()){
-                            taskOfCategory.setText("No asociated tasks");
+                            taskOfCategory.setText(getResources().getString(R.string.noTasks));
                         } else {
                             String res = "";
                             for (TaskPOJO t:

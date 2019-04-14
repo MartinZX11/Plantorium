@@ -3,14 +3,17 @@ package com.computalimpo.plantorium.POJO;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.graphics.Point;
-
 import com.google.android.gms.maps.model.LatLng;
+import android.content.Context;
+import android.content.res.Resources;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import com.computalimpo.plantorium.R;
 
 @Entity(tableName = "category_table")
 
@@ -33,6 +36,9 @@ public class CategoryPOJO implements Serializable {
     @ColumnInfo(name="category_ill")
     private boolean ill;
 
+    @ColumnInfo(name="category_harvest")
+    private boolean harvest;
+
     @ColumnInfo(name="category_number")
     private int number;
 
@@ -49,12 +55,13 @@ public class CategoryPOJO implements Serializable {
 
     }
 
-    public CategoryPOJO(String name, String location, boolean water, boolean prune, boolean ill, int number, String image, Double latitude, Double longitude) {
+    public CategoryPOJO(String name, String location, boolean water, boolean prune, boolean ill, boolean harvest, int number, String image, Double latitude, Double longitude) {
         this.name = name;
         this.location = location;
         this.water = water;
         this.prune = prune;
         this.ill = ill;
+        this.harvest = harvest;
         this.number = number;
         this.image = image;
         this.latitude = latitude;
@@ -109,6 +116,14 @@ public class CategoryPOJO implements Serializable {
         this.ill = ill;
     }
 
+    public boolean isHarvest() {
+        return harvest;
+    }
+
+    public void setHarvest(boolean harvest) {
+        this.harvest = harvest;
+    }
+
     public int getNumber() {return number; }
 
     public void setNumber(int number) {this.number = number; }
@@ -130,11 +145,12 @@ public class CategoryPOJO implements Serializable {
     public  void setLongitude(Double longitude) { this.longitude = longitude; }
 
 
-    public List<String> getTastkTypes(){
+    public List<String> getTastkTypes(Context context){
         List<String> res = new ArrayList<String>();
-        if(water) res.add("WATER");
-        if(prune) res.add("PRUNE");
-        if(ill) res.add("ILL");
+        if(water) res.add(context.getString(R.string.WATER));
+        if(prune) res.add(context.getString(R.string.PRUNE));
+        if(ill) res.add(context.getString(R.string.ILL));
+        if(harvest) res.add(context.getString(R.string.HARVEST));
         return res;
     }
 

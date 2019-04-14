@@ -66,7 +66,7 @@ public class TaskFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 if(taskAdapter.getItemViewType(position) == 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setMessage(R.string.categoryDeleteConfirmation);
+                    builder.setMessage(R.string.taskDeleteConfirmation);
                     final TaskPOJO cp = taskAdapter.getItem(position);
 
                     builder.setPositiveButton(R.string.categoryDeleteAccept, new DialogInterface.OnClickListener() {

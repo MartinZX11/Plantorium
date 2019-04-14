@@ -175,6 +175,12 @@
                     android:text="@string/checkBoxIll"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/checkPrune" />
+
+                <CheckBox
+                    android:id="@+id/checkHarvest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkBoxHarvest" />
             </LinearLayout>
 
             <LinearLayout
